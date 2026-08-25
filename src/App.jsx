@@ -39,8 +39,8 @@ const ratingOptions = [
   {
     value: 5,
     label: 'Tuyệt vời',
-    image: '/bathbombs/bathbomb-butterball.png',
-    alt: 'Bath bomb Butterball màu trắng, nền trong suốt',
+    image: '/bathbombs/bathbomb-fifth-cutout.png',
+    alt: 'Bath bomb nhiều màu tím, xanh, vàng và hồng, nền trong suốt',
   },
 ]
 
@@ -48,11 +48,12 @@ const impressionOptions = [
   { id: 'service', label: 'Dịch vụ cửa hàng', note: 'Sự tận tâm trong từng điểm chạm' },
   { id: 'space', label: 'Không gian', note: 'Mùi hương, âm thanh và cảm giác' },
   { id: 'team', label: 'Thái độ nhân viên', note: 'Tư vấn thân thiện, chủ động' },
+  { id: 'product-range', label: 'Sản phẩm đa dạng, nhiều màu sắc', note: 'Nhiều lựa chọn để tìm thấy điều bạn thích' },
 ]
 
 const dissatisfactionOptions = [
   'Thái độ nhân viên',
-  'Kỹ năng tư vấn/ KTSP',
+  'Kỹ năng tư vấn / Kiến thức sản phẩm',
   'Thanh toán lâu',
   'Không được chào đón và tư vấn sản phẩm',
   'Khác',

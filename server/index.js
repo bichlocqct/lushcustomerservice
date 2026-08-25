@@ -7,7 +7,7 @@ const { Pool } = pg
 
 const app = express()
 const port = Number(process.env.PORT || 3001)
-const allowedImpressions = new Set(['service', 'space', 'team'])
+const allowedImpressions = new Set(['service', 'space', 'team', 'product-range'])
 const allowedStores = new Set([
   'LUSH Vincom Đồng Khởi',
   'LUSH Saigon Center',
@@ -18,7 +18,7 @@ const allowedStores = new Set([
 ])
 const allowedDissatisfactions = new Set([
   'Thái độ nhân viên',
-  'Kỹ năng tư vấn/ KTSP',
+  'Kỹ năng tư vấn / Kiến thức sản phẩm',
   'Thanh toán lâu',
   'Không được chào đón và tư vấn sản phẩm',
   'Khác',
@@ -80,7 +80,9 @@ app.post('/api/reviews', async (request, response) => {
   const { errors, rating, impressions, dissatisfactions, phone } = validateReview(request.body)
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
+  const submittedAt = new Date().toISOString()
   const review = {
+    created_at: submittedAt,
     rating,
     impressions,
     dissatisfactions,
@@ -93,8 +95,8 @@ app.post('/api/reviews', async (request, response) => {
 
   if (!database) {
     if (process.env.DEMO_MODE === 'true') {
-      reviewsInDemoMode.push({ ...review, created_at: new Date().toISOString() })
-      return response.status(201).json({ ok: true, mode: 'demo' })
+      reviewsInDemoMode.push({ ...review })
+      return response.status(201).json({ ok: true, mode: 'demo', submittedAt })
     }
     return response.status(503).json({ message: 'Kết nối cơ sở dữ liệu chưa được cấu hình cho server.' })
   }
@@ -102,9 +104,10 @@ app.post('/api/reviews', async (request, response) => {
   try {
     await database.query(
       `insert into service_reviews
-        (rating, impressions, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
-       values ($1, $2, $3, $4, $5, $6, $7, $8)`,
+        (created_at, rating, impressions, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
       [
+        review.created_at,
         review.rating,
         review.impressions,
         review.dissatisfactions,
@@ -120,7 +123,7 @@ app.post('/api/reviews', async (request, response) => {
     return response.status(502).json({ message: 'LUSH chưa thể lưu đánh giá lúc này. Vui lòng thử lại sau ít phút.' })
   }
 
-  return response.status(201).json({ ok: true, mode: 'supabase-postgres' })
+  return response.status(201).json({ ok: true, mode: 'supabase-postgres', submittedAt })
 })
 
 app.listen(port, () => {
