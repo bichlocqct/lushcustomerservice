@@ -8,6 +8,14 @@ const { Pool } = pg
 const app = express()
 const port = Number(process.env.PORT || 3001)
 const allowedImpressions = new Set(['service', 'space', 'team'])
+const allowedStores = new Set([
+  'LUSH Vincom Đồng Khởi',
+  'LUSH Saigon Center',
+  'LUSH Hùng Vương Plaza',
+  'LUSH Hanoi Center',
+  'LUSH Lotte Tây Hồ',
+  'LUSH AEON Hà Đông',
+])
 const allowedDissatisfactions = new Set([
   'Thái độ nhân viên',
   'Kỹ năng tư vấn/ KTSP',
@@ -59,6 +67,7 @@ function validateReview(body = {}) {
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) errors.push('Mức đánh giá không hợp lệ.')
   if (!impressions.length || impressions.some((item) => !allowedImpressions.has(item))) errors.push('Điểm ấn tượng không hợp lệ.')
   if (dissatisfactions.some((item) => !allowedDissatisfactions.has(item))) errors.push('Mục chưa hài lòng không hợp lệ.')
+  if (!allowedStores.has(body.store)) errors.push('Cửa hàng không hợp lệ.')
   if (!/^(0)(3|5|7|8|9)\d{8}$/.test(phone)) errors.push('Số điện thoại không hợp lệ.')
   if (typeof body.dissatisfactionNote !== 'string' || body.dissatisfactionNote.length > 1000) errors.push('Nội dung chia sẻ quá dài.')
   if (typeof body.customerName !== 'string' || body.customerName.length > 80) errors.push('Tên không hợp lệ.')
@@ -78,7 +87,7 @@ app.post('/api/reviews', async (request, response) => {
     dissatisfaction_note: request.body.dissatisfactionNote.trim(),
     customer_name: request.body.customerName.trim(),
     phone,
-    store: request.body.store || 'Cửa hàng LUSH hôm nay',
+    store: request.body.store || 'LUSH Vincom Đồng Khởi',
     consent_to_contact: true,
   }
 

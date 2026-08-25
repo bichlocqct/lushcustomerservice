@@ -7,7 +7,7 @@ create table if not exists public.service_reviews (
   dissatisfaction_note text not null default '',
   customer_name text not null default '',
   phone text not null,
-  store text not null default 'Cửa hàng LUSH hôm nay',
+  store text not null default 'LUSH Vincom Đồng Khởi',
   consent_to_contact boolean not null default false
 );
 
@@ -18,5 +18,8 @@ create policy "review inserts through server"
   on public.service_reviews
   for insert
   with check (true);
+
+alter table public.service_reviews
+  alter column store set default 'LUSH Vincom Đồng Khởi';
 
 -- The Node.js server connects with DATABASE_URL. Never expose DATABASE_URL in VITE_ variables.

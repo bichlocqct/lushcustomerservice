@@ -15,32 +15,32 @@ const ratingOptions = [
   {
     value: 1,
     label: 'Chưa trọn vẹn',
-    image: '/bathbombs/bathbomb-pink-lilac.png',
-    alt: 'Bath bomb màu hồng tím',
+    image: '/bathbombs/bathbomb-pink-lilac-cutout.png',
+    alt: 'Bath bomb màu hồng tím, nền trong suốt',
   },
   {
     value: 2,
     label: 'Cần cải thiện',
-    image: '/bathbombs/bathbomb-sunny.png',
-    alt: 'Bath bomb màu vàng hồng',
+    image: '/bathbombs/bathbomb-sunny-cutout.png',
+    alt: 'Bath bomb màu vàng hồng, nền trong suốt',
   },
   {
     value: 3,
     label: 'Ổn',
-    image: '/bathbombs/bathbomb-white.png',
-    alt: 'Bath bomb màu trắng hồng',
+    image: '/bathbombs/bathbomb-white-cutout.png',
+    alt: 'Bath bomb màu trắng có hình sao hồng, nền trong suốt',
   },
   {
     value: 4,
     label: 'Rất tốt',
-    image: '/bathbombs/bathbomb-rose.png',
-    alt: 'Bath bomb màu hồng',
+    image: '/bathbombs/bathbomb-rose-cutout.png',
+    alt: 'Bath bomb màu hồng, nền trong suốt',
   },
   {
     value: 5,
     label: 'Tuyệt vời',
-    image: '/bathbombs/bathbomb-sunny.png',
-    alt: 'Bath bomb màu vàng hồng',
+    image: '/bathbombs/bathbomb-butterball.png',
+    alt: 'Bath bomb Butterball màu trắng, nền trong suốt',
   },
 ]
 
@@ -58,7 +58,14 @@ const dissatisfactionOptions = [
   'Khác',
 ]
 
-const storeOptions = ['Cửa hàng LUSH hôm nay', 'LUSH Đồng Khởi', 'LUSH Thảo Điền', 'LUSH Hà Nội', 'Khác']
+const storeOptions = [
+  'LUSH Vincom Đồng Khởi',
+  'LUSH Saigon Center',
+  'LUSH Hùng Vương Plaza',
+  'LUSH Hanoi Center',
+  'LUSH Lotte Tây Hồ',
+  'LUSH AEON Hà Đông',
+]
 
 function getTodayLabel() {
   return new Intl.DateTimeFormat('vi-VN', {
@@ -141,7 +148,7 @@ function App() {
   const [dissatisfactionNote, setDissatisfactionNote] = useState('')
   const [customerName, setCustomerName] = useState('')
   const [phone, setPhone] = useState('')
-  const [store, setStore] = useState('Cửa hàng LUSH hôm nay')
+  const [store, setStore] = useState(storeOptions[0])
   const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -161,7 +168,7 @@ function App() {
     setDissatisfactionNote('')
     setCustomerName('')
     setPhone('')
-    setStore('Cửa hàng LUSH hôm nay')
+    setStore(storeOptions[0])
     setConsent(false)
     setStatus('idle')
     setErrorMessage('')
@@ -242,9 +249,9 @@ function App() {
           <div className="hero-note hero-note-top">made with care <ArrowUpRight size={15} /></div>
           <div className="visual-blob visual-blob-green" />
           <div className="visual-blob visual-blob-pink" />
-          <img className="hero-bomb hero-bomb-back" src="/bathbombs/bathbomb-white.png" alt="Bath bomb trắng hồng" />
-          <img className="hero-bomb hero-bomb-main" src="/bathbombs/bathbomb-pink-lilac.png" alt="Bath bomb hồng tím" />
-          <img className="hero-bomb hero-bomb-small" src="/bathbombs/bathbomb-rose.png" alt="Bath bomb hồng" />
+          <img className="hero-bomb hero-bomb-back" src="/bathbombs/bathbomb-white-cutout.png" alt="Bath bomb trắng hồng" />
+          <img className="hero-bomb hero-bomb-main" src="/bathbombs/bathbomb-pink-lilac-cutout.png" alt="Bath bomb hồng tím" />
+          <img className="hero-bomb hero-bomb-small" src="/bathbombs/bathbomb-rose-cutout.png" alt="Bath bomb hồng" />
           <div className="hero-note hero-note-bottom">one bath at a time</div>
         </div>
       </section>
