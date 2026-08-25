@@ -51,10 +51,10 @@ const impressionOptions = [
 ]
 
 const dissatisfactionOptions = [
-  'Thời gian chờ',
-  'Tư vấn chưa đủ rõ',
-  'Khó tìm sản phẩm phù hợp',
-  'Không gian / trải nghiệm tại cửa hàng',
+  'Thái độ nhân viên',
+  'Kỹ năng tư vấn/ KTSP',
+  'Thanh toán lâu',
+  'Không được chào đón và tư vấn sản phẩm',
   'Khác',
 ]
 
@@ -212,8 +212,7 @@ function App() {
 
       <header className="topbar page-width">
         <a className="brand" href="/" aria-label="LUSH — trang chủ">
-          <span className="brand-word">LUSH</span>
-          <span className="brand-subtitle">fresh handmade cosmetics</span>
+          <img className="brand-logo" src="/brand/lush-logo-white.png" alt="LUSH fresh handmade cosmetics" />
         </a>
         <div className="header-meta">
           <span className="live-dot" aria-hidden="true" />
@@ -309,11 +308,11 @@ function App() {
               <div className="section-heading">
                 <div>
                   <span className="section-number">03 / 03</span>
-                  <h2>Có điều gì LUSH có thể làm tốt hơn?</h2>
+                  <h2>Bạn chưa hài lòng về điều gì hôm nay?</h2>
                 </div>
                 <span className="optional-note">Không bắt buộc</span>
               </div>
-              <p className="section-helper">Bạn có thể chọn một hoặc vài mục để chúng mình cải thiện đúng điều bạn cần.</p>
+              <p className="section-helper">Bạn có thể chọn một hoặc vài mục để LUSH hiểu rõ hơn điều cần cải thiện.</p>
               <div className="chip-list">
                 {dissatisfactionOptions.map((option) => {
                   const checked = dissatisfactions.includes(option)

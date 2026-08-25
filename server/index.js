@@ -9,10 +9,10 @@ const app = express()
 const port = Number(process.env.PORT || 3001)
 const allowedImpressions = new Set(['service', 'space', 'team'])
 const allowedDissatisfactions = new Set([
-  'Thời gian chờ',
-  'Tư vấn chưa đủ rõ',
-  'Khó tìm sản phẩm phù hợp',
-  'Không gian / trải nghiệm tại cửa hàng',
+  'Thái độ nhân viên',
+  'Kỹ năng tư vấn/ KTSP',
+  'Thanh toán lâu',
+  'Không được chào đón và tư vấn sản phẩm',
   'Khác',
 ])
 const reviewsInDemoMode = []
