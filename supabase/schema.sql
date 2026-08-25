@@ -3,6 +3,7 @@ create table if not exists public.service_reviews (
   created_at timestamptz not null default now(),
   rating smallint not null check (rating between 1 and 5),
   impressions text[] not null default '{}',
+  impression_note text not null default '',
   dissatisfactions text[] not null default '{}',
   dissatisfaction_note text not null default '',
   customer_name text not null default '',
@@ -21,5 +22,25 @@ create policy "review inserts through server"
 
 alter table public.service_reviews
   alter column store set default 'LUSH Vincom Đồng Khởi';
+
+alter table public.service_reviews
+  add column if not exists impression_note text not null default '';
+
+create or replace view public.review_summary as
+select
+  id,
+  created_at,
+  rating,
+  impressions,
+  impression_note,
+  dissatisfactions,
+  dissatisfaction_note,
+  customer_name,
+  phone,
+  store,
+  consent_to_contact
+from public.service_reviews;
+
+comment on view public.review_summary is 'Tổng hợp đánh giá dịch vụ khách hàng LUSH';
 
 -- The Node.js server connects with DATABASE_URL. Never expose DATABASE_URL in VITE_ variables.

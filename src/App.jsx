@@ -49,6 +49,7 @@ const impressionOptions = [
   { id: 'space', label: 'Không gian', note: 'Mùi hương, âm thanh và cảm giác' },
   { id: 'team', label: 'Thái độ nhân viên', note: 'Tư vấn thân thiện, chủ động' },
   { id: 'product-range', label: 'Sản phẩm đa dạng, nhiều màu sắc', note: 'Nhiều lựa chọn để tìm thấy điều bạn thích' },
+  { id: 'other', label: 'Khác', note: 'Bạn có thể chia sẻ thêm điều mình yêu thích' },
 ]
 
 const dissatisfactionOptions = [
@@ -133,7 +134,7 @@ function SuccessState({ onReset }) {
       <p className="eyebrow">Cảm ơn bạn đã ghé LUSH</p>
       <h2>Cảm nhận của bạn đã được ghi nhận.</h2>
       <p className="success-copy">
-        Đội ngũ LUSH trân trọng từng chia sẻ để mỗi lần bạn ghé thăm đều trở nên dễ chịu hơn.
+        Phản hồi của bạn đã được lưu vào mục Tổng hợp đánh giá. Đội ngũ LUSH trân trọng từng chia sẻ để mỗi lần bạn ghé thăm đều trở nên dễ chịu hơn.
       </p>
       <button className="secondary-button" type="button" onClick={onReset}>
         Gửi thêm một đánh giá <ArrowRight size={17} weight="bold" />
@@ -145,6 +146,7 @@ function SuccessState({ onReset }) {
 function App() {
   const [rating, setRating] = useState(0)
   const [impressions, setImpressions] = useState([])
+  const [impressionNote, setImpressionNote] = useState('')
   const [dissatisfactions, setDissatisfactions] = useState([])
   const [dissatisfactionNote, setDissatisfactionNote] = useState('')
   const [customerName, setCustomerName] = useState('')
@@ -165,6 +167,7 @@ function App() {
   function resetForm() {
     setRating(0)
     setImpressions([])
+    setImpressionNote('')
     setDissatisfactions([])
     setDissatisfactionNote('')
     setCustomerName('')
@@ -178,11 +181,14 @@ function App() {
 
   function validate() {
     const errors = {}
-    const normalizedPhone = phone.replace(/[\s().-]/g, '')
+    const normalizedPhone = phone.replace(/\D/g, '')
     if (!rating) errors.rating = 'Bạn hãy chọn một mức độ trải nghiệm.'
     if (!impressions.length) errors.impressions = 'Bạn có thể chọn ít nhất một điểm ấn tượng.'
-    if (!normalizedPhone || !/^(0|\+84)(3|5|7|8|9)\d{8}$/.test(normalizedPhone)) {
-      errors.phone = 'Vui lòng nhập số điện thoại di động hợp lệ.'
+    if (impressions.includes('other') && !impressionNote.trim()) {
+      errors.impressionNote = 'Bạn hãy chia sẻ thêm điều mình yêu thích.'
+    }
+    if (!/^0(3|5|7|8|9)\d{8}$/.test(normalizedPhone)) {
+      errors.phone = 'Vui lòng nhập đủ 10 chữ số điện thoại di động hợp lệ.'
     }
     if (!consent) errors.consent = 'Vui lòng đồng ý để LUSH có thể liên hệ khi cần.'
     setFieldErrors(errors)
@@ -199,10 +205,11 @@ function App() {
       await submitReview({
         rating,
         impressions,
+        impressionNote: impressionNote.trim(),
         dissatisfactions,
         dissatisfactionNote: dissatisfactionNote.trim(),
         customerName: customerName.trim(),
-        phone: phone.replace(/[\s().-]/g, ''),
+        phone: phone.replace(/\D/g, ''),
         store,
         consentToContact: consent,
       })
@@ -305,11 +312,32 @@ function App() {
                     onChange={() => {
                       toggleValue(option.id, impressions, setImpressions)
                       setFieldErrors((current) => ({ ...current, impressions: '' }))
+                      if (option.id === 'other' && impressions.includes('other')) {
+                        setImpressionNote('')
+                        setFieldErrors((current) => ({ ...current, impressionNote: '' }))
+                      }
                     }}
                   />
                 ))}
               </div>
               {fieldErrors.impressions ? <p className="field-error">{fieldErrors.impressions}</p> : null}
+              {impressions.includes('other') ? (
+                <label className="input-group other-feedback-group">
+                  <span>Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?</span>
+                  <textarea
+                    className={fieldErrors.impressionNote ? 'has-error' : ''}
+                    value={impressionNote}
+                    onChange={(event) => {
+                      setImpressionNote(event.target.value)
+                      setFieldErrors((current) => ({ ...current, impressionNote: '' }))
+                    }}
+                    placeholder="Một điều nhỏ nhưng đáng nhớ với bạn hôm nay…"
+                    rows="3"
+                    maxLength="1000"
+                  />
+                  {fieldErrors.impressionNote ? <small className="field-error">{fieldErrors.impressionNote}</small> : null}
+                </label>
+              ) : null}
             </section>
 
             <section className="form-section">
@@ -355,7 +383,7 @@ function App() {
                 </label>
                 <label className="input-group">
                   <span>Số điện thoại <small>(bắt buộc)</small></span>
-                  <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="09xx xxx xxx" autoComplete="tel" inputMode="tel" />
+                  <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '').slice(0, 10)); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="09xxxxxxxx" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" maxLength="10" />
                   {fieldErrors.phone ? <small className="field-error">{fieldErrors.phone}</small> : null}
                 </label>
               </div>

@@ -7,7 +7,7 @@ const { Pool } = pg
 
 const app = express()
 const port = Number(process.env.PORT || 3001)
-const allowedImpressions = new Set(['service', 'space', 'team', 'product-range'])
+const allowedImpressions = new Set(['service', 'space', 'team', 'product-range', 'other'])
 const allowedStores = new Set([
   'LUSH Vincom Đồng Khởi',
   'LUSH Saigon Center',
@@ -52,32 +52,36 @@ app.get('/api/health', async (_request, response) => {
 })
 
 function normalizePhone(phone = '') {
-  const compact = String(phone).replace(/[\s().-]/g, '')
-  if (compact.startsWith('+84')) return `0${compact.slice(3)}`
-  return compact
+  const rawPhone = String(phone).trim()
+  if (rawPhone.startsWith('+84')) return `0${rawPhone.slice(3).replace(/\D/g, '')}`
+  return rawPhone.replace(/\D/g, '')
 }
 
 function validateReview(body = {}) {
   const rating = Number(body.rating)
   const impressions = Array.isArray(body.impressions) ? body.impressions : []
   const dissatisfactions = Array.isArray(body.dissatisfactions) ? body.dissatisfactions : []
+  const impressionNote = typeof body.impressionNote === 'string' ? body.impressionNote.trim() : ''
+  const dissatisfactionNote = typeof body.dissatisfactionNote === 'string' ? body.dissatisfactionNote.trim() : ''
+  const customerName = typeof body.customerName === 'string' ? body.customerName.trim() : ''
   const phone = normalizePhone(body.phone)
   const errors = []
 
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) errors.push('Mức đánh giá không hợp lệ.')
   if (!impressions.length || impressions.some((item) => !allowedImpressions.has(item))) errors.push('Điểm ấn tượng không hợp lệ.')
+  if (impressions.includes('other') && !impressionNote) errors.push('Vui lòng chia sẻ thêm điều bạn yêu thích.')
   if (dissatisfactions.some((item) => !allowedDissatisfactions.has(item))) errors.push('Mục chưa hài lòng không hợp lệ.')
   if (!allowedStores.has(body.store)) errors.push('Cửa hàng không hợp lệ.')
   if (!/^(0)(3|5|7|8|9)\d{8}$/.test(phone)) errors.push('Số điện thoại không hợp lệ.')
-  if (typeof body.dissatisfactionNote !== 'string' || body.dissatisfactionNote.length > 1000) errors.push('Nội dung chia sẻ quá dài.')
-  if (typeof body.customerName !== 'string' || body.customerName.length > 80) errors.push('Tên không hợp lệ.')
+  if (impressionNote.length > 1000 || dissatisfactionNote.length > 1000) errors.push('Nội dung chia sẻ quá dài.')
+  if (customerName.length > 80) errors.push('Tên không hợp lệ.')
   if (body.consentToContact !== true) errors.push('Cần có sự đồng ý liên hệ.')
 
-  return { errors, rating, impressions, dissatisfactions, phone }
+  return { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone }
 }
 
 app.post('/api/reviews', async (request, response) => {
-  const { errors, rating, impressions, dissatisfactions, phone } = validateReview(request.body)
+  const { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone } = validateReview(request.body)
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
   const submittedAt = new Date().toISOString()
@@ -85,9 +89,10 @@ app.post('/api/reviews', async (request, response) => {
     created_at: submittedAt,
     rating,
     impressions,
+    impression_note: impressionNote,
     dissatisfactions,
-    dissatisfaction_note: request.body.dissatisfactionNote.trim(),
-    customer_name: request.body.customerName.trim(),
+    dissatisfaction_note: dissatisfactionNote,
+    customer_name: customerName,
     phone,
     store: request.body.store || 'LUSH Vincom Đồng Khởi',
     consent_to_contact: true,
@@ -104,12 +109,13 @@ app.post('/api/reviews', async (request, response) => {
   try {
     await database.query(
       `insert into service_reviews
-        (created_at, rating, impressions, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        (created_at, rating, impressions, impression_note, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
       [
         review.created_at,
         review.rating,
         review.impressions,
+        review.impression_note,
         review.dissatisfactions,
         review.dissatisfaction_note,
         review.customer_name,
