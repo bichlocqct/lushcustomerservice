@@ -8,6 +8,13 @@ const { Pool } = pg
 const app = express()
 const port = Number(process.env.PORT || 3001)
 const vietnamTimeZone = 'Asia/Ho_Chi_Minh'
+const impressionLabels = new Map([
+  ['service', 'Dịch vụ cửa hàng'],
+  ['space', 'Không gian cửa hàng'],
+  ['team', 'Thái độ nhân viên'],
+  ['product-range', 'Sản phẩm đa dạng'],
+  ['other', 'Khác'],
+])
 const allowedImpressions = new Set(['service', 'space', 'team', 'product-range', 'other'])
 const allowedStores = new Set([
   'LUSH Vincom Đồng Khởi',
@@ -56,7 +63,7 @@ function normalizePhone(phone = '') {
   return String(phone).trim()
 }
 
-function getVietnamTimestamp(date = new Date()) {
+function getVietnamDateParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: vietnamTimeZone,
     year: 'numeric',
@@ -67,9 +74,19 @@ function getVietnamTimestamp(date = new Date()) {
     second: '2-digit',
     hourCycle: 'h23',
   }).formatToParts(date)
-  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]))
+  return Object.fromEntries(parts.map(({ type, value }) => [type, value]))
+}
+
+function getVietnamTimestamp(date = new Date()) {
+  const values = getVietnamDateParts(date)
   const milliseconds = String(date.getMilliseconds()).padStart(3, '0')
   return `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}.${milliseconds}+07:00`
+}
+
+function getVietnamLocalTimestamp(date = new Date()) {
+  const values = getVietnamDateParts(date)
+  const milliseconds = String(date.getMilliseconds()).padStart(3, '0')
+  return `${values.year}-${values.month}-${values.day} ${values.hour}:${values.minute}:${values.second}.${milliseconds}`
 }
 
 function validateReview(body = {}) {
@@ -100,10 +117,12 @@ app.post(['/api/reviews', '/reviews'], async (request, response) => {
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
   const submittedAt = getVietnamTimestamp()
+  const submittedAtVietnam = getVietnamLocalTimestamp()
   const review = {
     created_at: submittedAt,
+    submitted_at_vietnam: submittedAtVietnam,
     rating,
-    impressions,
+    impressions: impressions.map((item) => impressionLabels.get(item) || item),
     impression_note: impressionNote,
     dissatisfactions,
     dissatisfaction_note: dissatisfactionNote,
@@ -124,10 +143,11 @@ app.post(['/api/reviews', '/reviews'], async (request, response) => {
   try {
     await database.query(
       `insert into service_reviews
-        (created_at, rating, impressions, impression_note, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        (created_at, submitted_at_vietnam, rating, impressions, impression_note, dissatisfactions, dissatisfaction_note, customer_name, phone, store, consent_to_contact)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
       [
         review.created_at,
+        review.submitted_at_vietnam,
         review.rating,
         review.impressions,
         review.impression_note,

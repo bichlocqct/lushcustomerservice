@@ -23,7 +23,7 @@ Nếu chưa có Supabase, đặt `DEMO_MODE=true` trong `.env` để kiểm tra 
 1. Mở SQL Editor của project Supabase và chạy `supabase/schema.sql`.
 2. Lấy chuỗi kết nối PostgreSQL pooler trong Supabase và điền vào `DATABASE_URL` trong `.env` của server.
 3. Server dùng `pg.Pool`, kết nối SSL và câu lệnh SQL parameterized để ghi vào bảng `service_reviews`.
-4. Mục `review_summary` là view Tổng hợp đánh giá, gồm thời gian gửi theo múi giờ Việt Nam, mức độ hài lòng, điểm ấn tượng, nội dung khách tự nhập và thông tin liên hệ.
+4. Mục `review_summary` là view Tổng hợp đánh giá, gồm thời gian gửi theo múi giờ Việt Nam, mức độ hài lòng, điểm ấn tượng bằng text tiếng Việt trên web, nội dung khách tự nhập và thông tin liên hệ.
 5. Giữ `DATABASE_URL` ở server, tuyệt đối không đưa vào biến `VITE_` hoặc commit file `.env`.
 
 ## Kiểm tra production build
