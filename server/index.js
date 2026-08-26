@@ -119,7 +119,7 @@ app.post(['/api/reviews', '/reviews'], async (request, response) => {
   const submittedAt = getVietnamTimestamp()
   const submittedAtVietnam = getVietnamLocalTimestamp()
   const review = {
-    created_at: submittedAt,
+    created_at: submittedAtVietnam,
     submitted_at_vietnam: submittedAtVietnam,
     rating,
     impressions: impressions.map((item) => impressionLabels.get(item) || item),
