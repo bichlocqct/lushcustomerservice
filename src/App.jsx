@@ -45,10 +45,10 @@ const ratingOptions = [
 ]
 
 const impressionOptions = [
-  { id: 'service', label: 'Dịch vụ cửa hàng', note: 'Sự tận tâm trong từng điểm chạm' },
-  { id: 'space', label: 'Không gian', note: 'Mùi hương, âm thanh và cảm giác' },
-  { id: 'team', label: 'Thái độ nhân viên', note: 'Tư vấn thân thiện, chủ động' },
-  { id: 'product-range', label: 'Sản phẩm đa dạng, nhiều màu sắc', note: 'Nhiều lựa chọn để tìm thấy điều bạn thích' },
+  { id: 'service', label: 'Dịch vụ cửa hàng' },
+  { id: 'space', label: 'Không gian cửa hàng', note: 'Mùi hương, màu sắc' },
+  { id: 'team', label: 'Thái độ nhân viên', note: 'Nhiệt tình, tư vấn chuyên nghiệp, …' },
+  { id: 'product-range', label: 'Sản phẩm đa dạng', note: 'Sản phẩm phù hợp nhiều nhu cầu' },
   { id: 'other', label: 'Khác', note: 'Bạn có thể chia sẻ thêm điều mình yêu thích' },
 ]
 
