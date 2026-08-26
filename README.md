@@ -31,3 +31,18 @@ Nếu chưa có Supabase, đặt `DEMO_MODE=true` trong `.env` để kiểm tra 
 ```bash
 npm run build
 ```
+
+## Deploy cùng một domain trên Vercel
+
+Repo này có sẵn hai Vercel Functions tại `/api/health` và `/api/reviews`. Khi deploy frontend và API cùng một project Vercel, không cần đặt `VITE_API_URL`; frontend sẽ gọi API bằng đường dẫn tương đối `/api/reviews`.
+
+Trong Vercel → Project Settings → Environment Variables, đặt cho Production:
+
+```env
+DATABASE_URL=<chuỗi kết nối Supabase PostgreSQL>
+DATABASE_SSL=true
+CLIENT_ORIGIN=https://lushcustomerservice.vercel.app
+DEMO_MODE=false
+```
+
+Nếu đang có `VITE_API_URL=http://localhost:3001` trên Vercel, hãy xóa biến đó rồi redeploy. Các biến Vite được đưa vào frontend ở bước build, nên thay đổi env cần một deployment mới.

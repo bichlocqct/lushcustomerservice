@@ -39,7 +39,7 @@ const database = databaseUrl
 app.use(cors({ origin: process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.split(',') : true }))
 app.use(express.json({ limit: '32kb' }))
 
-app.get('/api/health', async (_request, response) => {
+app.get(['/api/health', '/health'], async (_request, response) => {
   if (!database) return response.json({ ok: true, persistence: 'demo' })
 
   try {
@@ -80,7 +80,7 @@ function validateReview(body = {}) {
   return { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone }
 }
 
-app.post('/api/reviews', async (request, response) => {
+app.post(['/api/reviews', '/reviews'], async (request, response) => {
   const { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone } = validateReview(request.body)
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
@@ -132,7 +132,11 @@ app.post('/api/reviews', async (request, response) => {
   return response.status(201).json({ ok: true, mode: 'supabase-postgres', submittedAt })
 })
 
-app.listen(port, () => {
-  console.log(`LUSH review API listening on http://localhost:${port}`)
-  console.log(`Persistence: ${database ? 'Supabase PostgreSQL' : process.env.DEMO_MODE === 'true' ? 'demo memory' : 'not configured'}`)
-})
+export default app
+
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`LUSH review API listening on http://localhost:${port}`)
+    console.log(`Persistence: ${database ? 'Supabase PostgreSQL' : process.env.DEMO_MODE === 'true' ? 'demo memory' : 'not configured'}`)
+  })
+}
