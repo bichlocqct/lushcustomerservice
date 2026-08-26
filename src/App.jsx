@@ -69,8 +69,11 @@ const storeOptions = [
   'LUSH AEON Hà Đông',
 ]
 
+const vietnamTimeZone = 'Asia/Ho_Chi_Minh'
+
 function getTodayLabel() {
   return new Intl.DateTimeFormat('vi-VN', {
+    timeZone: vietnamTimeZone,
     weekday: 'long',
     day: '2-digit',
     month: '2-digit',

@@ -7,6 +7,7 @@ const { Pool } = pg
 
 const app = express()
 const port = Number(process.env.PORT || 3001)
+const vietnamTimeZone = 'Asia/Ho_Chi_Minh'
 const allowedImpressions = new Set(['service', 'space', 'team', 'product-range', 'other'])
 const allowedStores = new Set([
   'LUSH Vincom Đồng Khởi',
@@ -55,6 +56,22 @@ function normalizePhone(phone = '') {
   return String(phone).trim()
 }
 
+function getVietnamTimestamp(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: vietnamTimeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(date)
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]))
+  const milliseconds = String(date.getMilliseconds()).padStart(3, '0')
+  return `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}.${milliseconds}+07:00`
+}
+
 function validateReview(body = {}) {
   const rating = Number(body.rating)
   const impressions = Array.isArray(body.impressions) ? body.impressions : []
@@ -82,7 +99,7 @@ app.post(['/api/reviews', '/reviews'], async (request, response) => {
   const { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone } = validateReview(request.body)
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
-  const submittedAt = new Date().toISOString()
+  const submittedAt = getVietnamTimestamp()
   const review = {
     created_at: submittedAt,
     rating,

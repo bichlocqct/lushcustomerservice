@@ -38,7 +38,8 @@ select
   customer_name,
   phone,
   store,
-  consent_to_contact
+  consent_to_contact,
+  created_at at time zone 'Asia/Ho_Chi_Minh' as submitted_at_vietnam
 from public.service_reviews;
 
 comment on view public.review_summary is 'Tổng hợp đánh giá dịch vụ khách hàng LUSH';
