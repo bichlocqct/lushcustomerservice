@@ -52,9 +52,7 @@ app.get(['/api/health', '/health'], async (_request, response) => {
 })
 
 function normalizePhone(phone = '') {
-  const rawPhone = String(phone).trim()
-  if (rawPhone.startsWith('+84')) return `0${rawPhone.slice(3).replace(/\D/g, '')}`
-  return rawPhone.replace(/\D/g, '')
+  return String(phone).trim()
 }
 
 function validateReview(body = {}) {
@@ -72,7 +70,7 @@ function validateReview(body = {}) {
   if (impressions.includes('other') && !impressionNote) errors.push('Vui lòng chia sẻ thêm điều bạn yêu thích.')
   if (dissatisfactions.some((item) => !allowedDissatisfactions.has(item))) errors.push('Mục chưa hài lòng không hợp lệ.')
   if (!allowedStores.has(body.store)) errors.push('Cửa hàng không hợp lệ.')
-  if (!/^(0)(3|5|7|8|9)\d{8}$/.test(phone)) errors.push('Số điện thoại không hợp lệ.')
+  if (!/^\d+$/.test(phone)) errors.push('Số điện thoại chỉ được chứa chữ số.')
   if (impressionNote.length > 1000 || dissatisfactionNote.length > 1000) errors.push('Nội dung chia sẻ quá dài.')
   if (customerName.length > 80) errors.push('Tên không hợp lệ.')
   if (body.consentToContact !== true) errors.push('Cần có sự đồng ý liên hệ.')

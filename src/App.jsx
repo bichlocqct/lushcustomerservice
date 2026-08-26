@@ -187,8 +187,8 @@ function App() {
     if (impressions.includes('other') && !impressionNote.trim()) {
       errors.impressionNote = 'Bạn hãy chia sẻ thêm điều mình yêu thích.'
     }
-    if (!/^0(3|5|7|8|9)\d{8}$/.test(normalizedPhone)) {
-      errors.phone = 'Vui lòng nhập đủ 10 chữ số điện thoại di động hợp lệ.'
+    if (!/^\d+$/.test(normalizedPhone)) {
+      errors.phone = 'Vui lòng nhập số điện thoại chỉ bằng chữ số.'
     }
     if (!consent) errors.consent = 'Vui lòng đồng ý để LUSH có thể liên hệ khi cần.'
     setFieldErrors(errors)
@@ -378,12 +378,12 @@ function App() {
               </div>
               <div className="contact-grid">
                 <label className="input-group">
-                  <span>Tên của bạn <small>(không bắt buộc)</small></span>
+                  <span>Tên của bạn</span>
                   <input type="text" value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Bạn muốn được gọi là gì?" autoComplete="name" maxLength="80" />
                 </label>
                 <label className="input-group">
-                  <span>Số điện thoại <small>(bắt buộc)</small></span>
-                  <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '').slice(0, 10)); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="09xxxxxxxx" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" maxLength="10" />
+                  <span>Số điện thoại</span>
+                  <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '')); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="Nhập số điện thoại" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" />
                   {fieldErrors.phone ? <small className="field-error">{fieldErrors.phone}</small> : null}
                 </label>
               </div>
