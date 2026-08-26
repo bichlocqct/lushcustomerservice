@@ -243,7 +243,7 @@ function App() {
       <section className="hero page-width">
         <div className="hero-copy">
           <p className="eyebrow"><Sparkle size={15} weight="fill" /> LUSH service notes</p>
-          <h1>Mỗi lần ghé LUSH đều đáng nhớ hơn.</h1>
+          <h1>Mỗi lần ghé LUSH đều đáng nhớ hơn</h1>
           <p className="hero-description">
             Chia sẻ vài dòng về trải nghiệm hôm nay. Những điều nhỏ bạn nói ra giúp chúng mình chăm chút cửa hàng tốt hơn mỗi ngày.
           </p>
@@ -275,7 +275,7 @@ function App() {
           </div>
           <div className="step-line"><span style={{ width: `${(currentStep / 3) * 100}%` }} /></div>
           <p className="aside-kicker">Một chút thời gian của bạn</p>
-          <h2>Để LUSH<br /><em>lắng nghe</em><br />thật kỹ.</h2>
+          <h2>Để LUSH<br /><em>lắng nghe</em><br />thật kỹ</h2>
           <p className="aside-copy">Bạn không cần viết dài. Một lựa chọn cũng đủ để chúng mình hiểu điều gì đang làm nên một ngày thật vui tại cửa hàng.</p>
           <div className="aside-location"><MapPin size={17} weight="fill" /><span>Feedback của bạn sẽ được gửi riêng đến đội ngũ LUSH.</span></div>
         </aside>
