@@ -25,10 +25,11 @@ const allowedStores = new Set([
   'LUSH AEON Hà Đông',
 ])
 const allowedDissatisfactions = new Set([
-  'Thái độ nhân viên',
-  'Kỹ năng tư vấn / Kiến thức sản phẩm',
+  'Thái độ nhân viên chưa tốt',
+  'Kiến thức về sản phẩm',
   'Thanh toán lâu',
-  'Không được chào đón và tư vấn sản phẩm',
+  'Sản phẩm hết hàng',
+  'Không gian/Vệ sinh cửa hàng',
   'Khác',
 ])
 const reviewsInDemoMode = []

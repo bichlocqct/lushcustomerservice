@@ -83,7 +83,8 @@ button:disabled { cursor: wait; }
 .step-total { color: var(--muted); font-size: 12px; letter-spacing: .1em; margin-left: 5px; }
 .step-line { background: var(--line); height: 2px; margin-bottom: 65px; overflow: hidden; width: 120px; }
 .step-line span { background: var(--green); display: block; height: 100%; transition: width .4s ease; }
-.review-aside h2 { color: var(--green-deep); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: clamp(39px, 4vw, 56px); font-kerning: normal; letter-spacing: -.035em; line-height: 1.12; margin: 0; text-wrap: balance; }
+.review-aside h2 { align-items: flex-start; color: var(--green-deep); display: flex; flex-direction: column; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: clamp(39px, 4vw, 56px); font-kerning: normal; letter-spacing: -.035em; line-height: 1.12; margin: 0; max-width: 100%; text-wrap: balance; }
+.review-aside h2 > span, .review-aside h2 > em { display: block; }
 .review-aside h2 em { color: inherit; font-family: inherit; font-size: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; }
 .aside-copy { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 28px 0; max-width: 245px; }
 .aside-location { align-items: flex-start; border-top: 1px solid var(--line); color: var(--green); display: flex; font-size: 10px; gap: 8px; letter-spacing: .03em; line-height: 1.4; max-width: 260px; padding-top: 16px; }
@@ -207,7 +208,6 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero-visual { margin: 0 auto; min-height: 350px; width: min(100%, 530px); }
   .review-layout { gap: 35px; grid-template-columns: 1fr; }
   .review-aside { padding: 0; position: static; }
-  .review-aside h2 br { display: block; }
   .review-aside h2 { font-size: clamp(38px, 6vw, 54px); line-height: 1.12; max-width: 100%; }
   .aside-copy { max-width: 480px; }
   .aside-location { max-width: 390px; }
@@ -257,7 +257,6 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero-note-bottom { bottom: 4px; left: 35%; }
   .review-layout { padding-bottom: 60px; }
   .review-aside h2 { font-size: clamp(32px, 9.4vw, 38px); letter-spacing: -.02em; line-height: 1.13; max-width: 100%; }
-  .review-aside h2 br { display: block; }
   .aside-copy { font-size: 14px; line-height: 1.8; max-width: none; }
   .step-line { margin-bottom: 37px; }
   .form-section, .contact-section { padding-left: 20px; padding-right: 20px; }
