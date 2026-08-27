@@ -384,7 +384,7 @@ function App() {
                     </div>
                     <span className="optional-note">Không bắt buộc</span>
                   </div>
-                  <p className="section-helper">Bạn có thể chọn một hoặc vài mục để LUSH hiểu rõ hơn điều cần cải thiện.</p>
+                  <p className="section-helper">Bạn có thể chọn một hoặc vài mục, hoặc bỏ qua nếu hôm nay mọi thứ đều ổn.</p>
                   <div className="chip-list">
                     {dissatisfactionOptions.map((option) => {
                       const checked = dissatisfactions.includes(option)
@@ -398,7 +398,7 @@ function App() {
                     })}
                   </div>
                   <label className="input-group note-group">
-                    <span>Bạn muốn chia sẻ thêm?</span>
+                    <span>Chia sẻ thêm nếu bạn muốn (không bắt buộc)</span>
                     <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng có thể tạo nên thay đổi lớn…" rows="3" maxLength="1000" />
                   </label>
                 </section>
