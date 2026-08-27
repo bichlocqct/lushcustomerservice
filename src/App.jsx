@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -53,10 +54,11 @@ const impressionOptions = [
 ]
 
 const dissatisfactionOptions = [
-  'Thái độ nhân viên',
-  'Kỹ năng tư vấn / Kiến thức sản phẩm',
+  'Thái độ nhân viên chưa tốt',
+  'Kiến thức về sản phẩm',
   'Thanh toán lâu',
-  'Không được chào đón và tư vấn sản phẩm',
+  'Sản phẩm hết hàng',
+  'Không gian/Vệ sinh cửa hàng',
   'Khác',
 ]
 
@@ -159,9 +161,10 @@ function App() {
   const [status, setStatus] = useState('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
+  const [page, setPage] = useState(1)
 
   const todayLabel = useMemo(getTodayLabel, [])
-  const currentStep = rating ? 2 : 1
+  const currentStep = page
 
   function toggleValue(value, values, setValues) {
     setValues(values.includes(value) ? values.filter((item) => item !== value) : [...values, value])
@@ -180,28 +183,47 @@ function App() {
     setStatus('idle')
     setErrorMessage('')
     setFieldErrors({})
+    setPage(1)
   }
 
-  function validate() {
+  function changePage(nextPage) {
+    setPage(nextPage)
+    setFieldErrors({})
+    setErrorMessage('')
+    window.requestAnimationFrame(() => {
+      document.getElementById('review-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }
+
+  function validatePage(pageToValidate) {
     const errors = {}
-    const normalizedPhone = phone.replace(/\D/g, '')
-    if (!rating) errors.rating = 'Bạn hãy chọn một mức độ trải nghiệm.'
-    if (!impressions.length) errors.impressions = 'Bạn có thể chọn ít nhất một điểm ấn tượng.'
-    if (impressions.includes('other') && !impressionNote.trim()) {
-      errors.impressionNote = 'Bạn hãy chia sẻ thêm điều mình yêu thích.'
+    if (pageToValidate === 1) {
+      if (!rating) errors.rating = 'Bạn hãy chọn một mức độ trải nghiệm.'
+      if (!impressions.length) errors.impressions = 'Bạn có thể chọn ít nhất một điểm ấn tượng.'
+      if (impressions.includes('other') && !impressionNote.trim()) {
+        errors.impressionNote = 'Bạn hãy chia sẻ thêm điều mình yêu thích.'
+      }
     }
-    if (!/^\d+$/.test(normalizedPhone)) {
-      errors.phone = 'Vui lòng nhập số điện thoại chỉ bằng chữ số.'
+    if (pageToValidate === 2) {
+      const normalizedPhone = phone.replace(/\D/g, '')
+      if (!/^\d+$/.test(normalizedPhone)) {
+        errors.phone = 'Vui lòng nhập số điện thoại chỉ bằng chữ số.'
+      }
+      if (!consent) errors.consent = 'Vui lòng đồng ý để LUSH có thể liên hệ khi cần.'
     }
-    if (!consent) errors.consent = 'Vui lòng đồng ý để LUSH có thể liên hệ khi cần.'
     setFieldErrors(errors)
     return Object.keys(errors).length === 0
+  }
+
+  function handleNext(event) {
+    event.preventDefault()
+    if (validatePage(1)) changePage(2)
   }
 
   async function handleSubmit(event) {
     event.preventDefault()
     setErrorMessage('')
-    if (!validate()) return
+    if (!validatePage(2)) return
 
     setStatus('submitting')
     try {
@@ -271,9 +293,9 @@ function App() {
         <aside className="review-aside">
           <div className="step-heading">
             <span className="step-current">0{currentStep}</span>
-            <span className="step-total">/ 03</span>
+            <span className="step-total">/ 02</span>
           </div>
-          <div className="step-line"><span style={{ width: `${(currentStep / 3) * 100}%` }} /></div>
+          <div className="step-line"><span style={{ width: `${(currentStep / 2) * 100}%` }} /></div>
           <p className="aside-kicker">Một chút thời gian của bạn</p>
           <h2>Để LUSH<br /><em>lắng nghe</em><br />thật kỹ</h2>
           <p className="aside-copy">Bạn không cần viết dài. Một lựa chọn cũng đủ để chúng mình hiểu điều gì đang làm nên một ngày thật vui tại cửa hàng.</p>
@@ -283,134 +305,152 @@ function App() {
         {status === 'success' ? (
           <SuccessState onReset={resetForm} />
         ) : (
-          <form className="review-form" onSubmit={handleSubmit} noValidate>
-            <section className="form-section rating-section">
-              <div className="section-heading">
-                <div>
-                  <span className="section-number">01 / 03</span>
-                  <h2>Hôm nay bạn thấy trải nghiệm thế nào?</h2>
-                </div>
-                <span className="required-note">Bắt buộc</span>
-              </div>
-              <p className="section-helper">Hãy chọn cục bath bomb gần nhất với cảm nhận của bạn.</p>
-              <RatingSelector rating={rating} onChange={(value) => { setRating(value); setFieldErrors((current) => ({ ...current, rating: '' })) }} />
-              {fieldErrors.rating ? <p className="field-error">{fieldErrors.rating}</p> : null}
-            </section>
+          <form className="review-form" onSubmit={page === 1 ? handleNext : handleSubmit} noValidate>
+            {page === 1 ? (
+              <>
+                <section className="form-section rating-section">
+                  <div className="section-heading">
+                    <div>
+                      <span className="section-number">01 / 02</span>
+                      <h2>Buổi tư vấn hôm nay xứng đáng với mấy viên bath bomb?</h2>
+                    </div>
+                    <span className="required-note">Bắt buộc</span>
+                  </div>
+                  <p className="section-helper">Hãy chọn mức độ gần nhất với cảm nhận của bạn.</p>
+                  <RatingSelector rating={rating} onChange={(value) => { setRating(value); setFieldErrors((current) => ({ ...current, rating: '' })) }} />
+                  {fieldErrors.rating ? <p className="field-error">{fieldErrors.rating}</p> : null}
+                </section>
 
-            <section className="form-section">
-              <div className="section-heading">
-                <div>
-                  <span className="section-number">02 / 03</span>
-                  <h2>Điều gì đã để lại ấn tượng với bạn hôm nay?</h2>
-                </div>
-                <span className="required-note">Chọn nhiều</span>
-              </div>
-              <div className="option-list">
-                {impressionOptions.map((option) => (
-                  <ToggleOption
-                    key={option.id}
-                    checked={impressions.includes(option.id)}
-                    label={option.label}
-                    note={option.note}
-                    onChange={() => {
-                      toggleValue(option.id, impressions, setImpressions)
-                      setFieldErrors((current) => ({ ...current, impressions: '' }))
-                      if (option.id === 'other' && impressions.includes('other')) {
-                        setImpressionNote('')
-                        setFieldErrors((current) => ({ ...current, impressionNote: '' }))
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-              {fieldErrors.impressions ? <p className="field-error">{fieldErrors.impressions}</p> : null}
-              {impressions.includes('other') ? (
-                <label className="input-group other-feedback-group">
-                  <span>Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?</span>
-                  <textarea
-                    className={fieldErrors.impressionNote ? 'has-error' : ''}
-                    value={impressionNote}
-                    onChange={(event) => {
-                      setImpressionNote(event.target.value)
-                      setFieldErrors((current) => ({ ...current, impressionNote: '' }))
-                    }}
-                    placeholder="Một điều nhỏ nhưng đáng nhớ với bạn hôm nay…"
-                    rows="3"
-                    maxLength="1000"
-                  />
-                  {fieldErrors.impressionNote ? <small className="field-error">{fieldErrors.impressionNote}</small> : null}
-                </label>
-              ) : null}
-            </section>
-
-            <section className="form-section">
-              <div className="section-heading">
-                <div>
-                  <span className="section-number">03 / 03</span>
-                  <h2>Bạn chưa hài lòng về điều gì hôm nay?</h2>
-                </div>
-                <span className="optional-note">Không bắt buộc</span>
-              </div>
-              <p className="section-helper">Bạn có thể chọn một hoặc vài mục để LUSH hiểu rõ hơn điều cần cải thiện.</p>
-              <div className="chip-list">
-                {dissatisfactionOptions.map((option) => {
-                  const checked = dissatisfactions.includes(option)
-                  return (
-                    <label className={`choice-chip ${checked ? 'is-selected' : ''}`} key={option}>
-                      <input type="checkbox" checked={checked} onChange={() => toggleValue(option, dissatisfactions, setDissatisfactions)} />
-                      <span>{option}</span>
-                      {checked ? <Check size={14} weight="bold" /> : null}
+                <section className="form-section">
+                  <div className="section-heading">
+                    <div>
+                      <span className="section-number">Điểm hài lòng</span>
+                      <h2>Điều gì đã để lại ấn tượng với bạn hôm nay?</h2>
+                    </div>
+                    <span className="required-note">Chọn nhiều</span>
+                  </div>
+                  <div className="option-list">
+                    {impressionOptions.map((option) => (
+                      <ToggleOption
+                        key={option.id}
+                        checked={impressions.includes(option.id)}
+                        label={option.label}
+                        note={option.note}
+                        onChange={() => {
+                          toggleValue(option.id, impressions, setImpressions)
+                          setFieldErrors((current) => ({ ...current, impressions: '' }))
+                          if (option.id === 'other' && impressions.includes('other')) {
+                            setImpressionNote('')
+                            setFieldErrors((current) => ({ ...current, impressionNote: '' }))
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
+                  {fieldErrors.impressions ? <p className="field-error">{fieldErrors.impressions}</p> : null}
+                  {impressions.includes('other') ? (
+                    <label className="input-group other-feedback-group">
+                      <span>Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?</span>
+                      <textarea
+                        className={fieldErrors.impressionNote ? 'has-error' : ''}
+                        value={impressionNote}
+                        onChange={(event) => {
+                          setImpressionNote(event.target.value)
+                          setFieldErrors((current) => ({ ...current, impressionNote: '' }))
+                        }}
+                        placeholder="Một điều nhỏ nhưng đáng nhớ với bạn hôm nay…"
+                        rows="3"
+                        maxLength="1000"
+                      />
+                      {fieldErrors.impressionNote ? <small className="field-error">{fieldErrors.impressionNote}</small> : null}
                     </label>
-                  )
-                })}
-              </div>
-              <label className="input-group note-group">
-                <span>Bạn muốn chia sẻ thêm?</span>
-                <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng có thể tạo nên thay đổi lớn…" rows="3" maxLength="1000" />
-              </label>
-            </section>
+                  ) : null}
+                </section>
 
-            <section className="contact-section">
-              <div className="contact-heading">
-                <div className="contact-icon"><Phone size={21} weight="light" /></div>
-                <div>
-                  <span className="section-number">Liên hệ khi cần</span>
-                  <h2>LUSH có thể gọi cho bạn chứ?</h2>
-                  <p>Chúng mình chỉ liên hệ để trao đổi thêm về trải nghiệm này.</p>
+                <div className="form-navigation">
+                  <p>Trang 1 trong 2 · Bạn có thể quay lại chỉnh sửa.</p>
+                  <button className="submit-button" type="submit">
+                    Tiếp tục <ArrowRight size={18} weight="bold" />
+                  </button>
                 </div>
-              </div>
-              <div className="contact-grid">
-                <label className="input-group">
-                  <span>Tên của bạn</span>
-                  <input type="text" value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Bạn muốn được gọi là gì?" autoComplete="name" maxLength="80" />
-                </label>
-                <label className="input-group">
-                  <span>Số điện thoại</span>
-                  <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '')); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="Nhập số điện thoại" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" />
-                  {fieldErrors.phone ? <small className="field-error">{fieldErrors.phone}</small> : null}
-                </label>
-              </div>
-              <label className="input-group store-group">
-                <span>Cửa hàng bạn đã ghé</span>
-                <select value={store} onChange={(event) => setStore(event.target.value)}>
-                  {storeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                </select>
-              </label>
-              <label className={`consent-row ${fieldErrors.consent ? 'has-error' : ''}`}>
-                <input type="checkbox" checked={consent} onChange={(event) => { setConsent(event.target.checked); setFieldErrors((current) => ({ ...current, consent: '' })) }} />
-                <span className="consent-mark" aria-hidden="true">{consent ? <Check size={13} weight="bold" /> : null}</span>
-                <span>Tôi đồng ý để LUSH lưu thông tin và liên hệ với tôi về phản hồi này.</span>
-              </label>
-              {fieldErrors.consent ? <p className="field-error consent-error">{fieldErrors.consent}</p> : null}
-              {status === 'error' ? <div className="submit-error" role="alert">{errorMessage}</div> : null}
-              <div className="submit-row">
-                <p>Thông tin của bạn được bảo mật và chỉ dùng cho mục đích chăm sóc trải nghiệm.</p>
-                <button className="submit-button" type="submit" disabled={status === 'submitting'}>
-                  {status === 'submitting' ? <span className="button-loader" aria-hidden="true" /> : <ArrowRight size={18} weight="bold" />}
-                  {status === 'submitting' ? 'Đang gửi…' : 'Gửi đánh giá'}
-                </button>
-              </div>
-            </section>
+              </>
+            ) : (
+              <>
+                <section className="form-section">
+                  <div className="section-heading">
+                    <div>
+                      <span className="section-number">02 / 02</span>
+                      <h2>Bạn chưa hài lòng về điều gì hôm nay?</h2>
+                    </div>
+                    <span className="optional-note">Không bắt buộc</span>
+                  </div>
+                  <p className="section-helper">Bạn có thể chọn một hoặc vài mục để LUSH hiểu rõ hơn điều cần cải thiện.</p>
+                  <div className="chip-list">
+                    {dissatisfactionOptions.map((option) => {
+                      const checked = dissatisfactions.includes(option)
+                      return (
+                        <label className={`choice-chip ${checked ? 'is-selected' : ''}`} key={option}>
+                          <input type="checkbox" checked={checked} onChange={() => toggleValue(option, dissatisfactions, setDissatisfactions)} />
+                          <span>{option}</span>
+                          {checked ? <Check size={14} weight="bold" /> : null}
+                        </label>
+                      )
+                    })}
+                  </div>
+                  <label className="input-group note-group">
+                    <span>Bạn muốn chia sẻ thêm?</span>
+                    <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng có thể tạo nên thay đổi lớn…" rows="3" maxLength="1000" />
+                  </label>
+                </section>
+
+                <section className="contact-section">
+                  <div className="contact-heading">
+                    <div className="contact-icon"><Phone size={21} weight="light" /></div>
+                    <div>
+                      <span className="section-number">Thông tin liên hệ</span>
+                      <h2>LUSH có thể gọi cho bạn chứ?</h2>
+                      <p>Chúng mình chỉ liên hệ để trao đổi thêm về trải nghiệm này.</p>
+                    </div>
+                  </div>
+                  <div className="contact-grid">
+                    <label className="input-group">
+                      <span>Tên của bạn</span>
+                      <input type="text" value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Bạn muốn được gọi là gì?" autoComplete="name" maxLength="80" />
+                    </label>
+                    <label className="input-group">
+                      <span>Số điện thoại</span>
+                      <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '')); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="Nhập số điện thoại" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" />
+                      {fieldErrors.phone ? <small className="field-error">{fieldErrors.phone}</small> : null}
+                    </label>
+                  </div>
+                  <label className="input-group store-group">
+                    <span>Cửa hàng bạn đã ghé</span>
+                    <select value={store} onChange={(event) => setStore(event.target.value)}>
+                      {storeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                    </select>
+                  </label>
+                  <label className={`consent-row ${fieldErrors.consent ? 'has-error' : ''}`}>
+                    <input type="checkbox" checked={consent} onChange={(event) => { setConsent(event.target.checked); setFieldErrors((current) => ({ ...current, consent: '' })) }} />
+                    <span className="consent-mark" aria-hidden="true">{consent ? <Check size={13} weight="bold" /> : null}</span>
+                    <span>Tôi đồng ý để LUSH lưu thông tin và liên hệ với tôi về phản hồi này.</span>
+                  </label>
+                  {fieldErrors.consent ? <p className="field-error consent-error">{fieldErrors.consent}</p> : null}
+                  {status === 'error' ? <div className="submit-error" role="alert">{errorMessage}</div> : null}
+                  <div className="submit-row">
+                    <p>Thông tin của bạn được bảo mật và chỉ dùng cho mục đích chăm sóc trải nghiệm.</p>
+                    <div className="navigation-actions">
+                      <button className="back-button" type="button" onClick={() => changePage(1)}>
+                        <ArrowLeft size={18} weight="bold" /> Quay lại
+                      </button>
+                      <button className="submit-button" type="submit" disabled={status === 'submitting'}>
+                        {status === 'submitting' ? <span className="button-loader" aria-hidden="true" /> : <ArrowRight size={18} weight="bold" />}
+                        {status === 'submitting' ? 'Đang gửi…' : 'Gửi đánh giá'}
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </>
+            )}
           </form>
         )}
       </section>
