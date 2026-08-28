@@ -73,7 +73,8 @@ button:disabled { cursor: wait; }
 .hero { align-items: center; display: grid; gap: 8%; grid-template-columns: 1.02fr .98fr; min-height: 540px; padding: 72px 0 82px; }
 .hero-copy { max-width: 570px; padding-left: 5%; }
 .eyebrow, .aside-kicker, .stamp-kicker { align-items: center; color: var(--green); display: flex; font-size: 10px; font-weight: 700; gap: 8px; letter-spacing: .17em; margin: 0 0 25px; text-transform: uppercase; }
-.hero h1 { color: var(--green-deep); font-size: clamp(46px, 5.9vw, 84px); font-weight: 700; letter-spacing: -.045em; line-height: 1.06; margin: 0; max-width: min(100%, 15ch); text-wrap: balance; }
+.hero h1 { color: var(--green-deep); font-size: clamp(46px, 5.9vw, 84px); font-weight: 700; letter-spacing: -.045em; line-height: 1.06; margin: 0; max-width: 100%; text-wrap: balance; }
+.hero h1 > span { display: block; }
 .hero-description { color: var(--muted); font-size: 15px; line-height: 2; margin: 30px 0 0; max-width: 460px; }
 .hero-stamp { align-items: center; border-top: 1px solid var(--line); display: flex; gap: 14px; margin-top: 44px; padding-top: 16px; width: 280px; }
 .stamp-icon { align-items: center; background: var(--ink); border-radius: 50%; color: var(--white); display: flex; height: 44px; justify-content: center; width: 44px; }
@@ -221,6 +222,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
   .hero h1 { font-size: clamp(44px, 9.5vw, 70px); letter-spacing: -.04em; line-height: 1.06; max-width: 100%; }
+  .hero h1 > span, .review-aside h2 > span { white-space: nowrap; }
   .hero-visual { margin: 0 auto; min-height: 350px; width: min(100%, 530px); }
   .review-layout { gap: 35px; grid-template-columns: 1fr; }
   .review-aside { padding: 0; position: static; }
@@ -259,7 +261,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }
-  .hero h1 { font-size: clamp(38px, 11.5vw, 50px); letter-spacing: -.035em; line-height: 1.08; max-width: 100%; }
+  .hero h1 { font-size: clamp(35px, 10.3vw, 44px); letter-spacing: -.04em; line-height: 1.08; max-width: 100%; }
   .hero-description { font-size: 13px; margin-top: 24px; }
   .hero-stamp { margin-top: 30px; }
   .hero-visual { min-height: 275px; }
