@@ -73,7 +73,7 @@ button:disabled { cursor: wait; }
 .hero { align-items: center; display: grid; gap: 8%; grid-template-columns: 1.02fr .98fr; min-height: 540px; padding: 72px 0 82px; }
 .hero-copy { max-width: 570px; padding-left: 5%; }
 .eyebrow, .aside-kicker, .stamp-kicker { align-items: center; color: var(--green); display: flex; font-size: 10px; font-weight: 700; gap: 8px; letter-spacing: .17em; margin: 0 0 25px; text-transform: uppercase; }
-.hero h1 { color: var(--green-deep); font-size: clamp(50px, 6.2vw, 88px); font-weight: 700; letter-spacing: -.075em; line-height: 1.02; margin: 0; max-width: 690px; text-wrap: balance; }
+.hero h1 { color: var(--green-deep); font-size: clamp(46px, 5.9vw, 84px); font-weight: 700; letter-spacing: -.045em; line-height: 1.06; margin: 0; max-width: min(100%, 15ch); text-wrap: balance; }
 .hero-description { color: var(--muted); font-size: 15px; line-height: 2; margin: 30px 0 0; max-width: 460px; }
 .hero-stamp { align-items: center; border-top: 1px solid var(--line); display: flex; gap: 14px; margin-top: 44px; padding-top: 16px; width: 280px; }
 .stamp-icon { align-items: center; background: var(--ink); border-radius: 50%; color: var(--white); display: flex; height: 44px; justify-content: center; width: 44px; }
@@ -99,7 +99,7 @@ button:disabled { cursor: wait; }
 .step-total { color: var(--muted); font-size: 12px; letter-spacing: .1em; margin-left: 5px; }
 .step-line { background: var(--line); height: 2px; margin-bottom: 65px; overflow: hidden; width: 120px; }
 .step-line span { background: var(--green); display: block; height: 100%; transition: width .4s ease; }
-.review-aside h2 { align-items: flex-start; color: var(--green-deep); display: flex; flex-direction: column; font-family: 'LUSH Helvetica Neue', Arial, sans-serif; font-size: clamp(39px, 4vw, 56px); font-kerning: normal; letter-spacing: -.035em; line-height: 1.12; margin: 0; max-width: 100%; text-wrap: balance; }
+.review-aside h2 { align-items: flex-start; color: var(--green-deep); display: flex; flex-direction: column; font-family: 'LUSH Helvetica Neue', Arial, sans-serif; font-size: clamp(39px, 4vw, 56px); font-kerning: normal; letter-spacing: -.02em; line-height: 1.1; margin: 0; max-width: 100%; row-gap: .04em; text-wrap: balance; }
 .review-aside h2 > span, .review-aside h2 > em { display: block; }
 .review-aside h2 em { color: inherit; font-family: inherit; font-size: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; }
 .aside-copy { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 28px 0; max-width: 245px; }
@@ -202,11 +202,11 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .topbar { padding-left: 20px; padding-right: 20px; }
   .hero { gap: 4%; padding-bottom: 68px; padding-top: 62px; }
   .hero-copy { padding-left: 0; }
-  .hero h1 { font-size: clamp(49px, 6.6vw, 68px); }
+  .hero h1 { font-size: clamp(46px, 6.2vw, 66px); letter-spacing: -.04em; line-height: 1.06; }
   .hero-visual { min-height: 370px; }
   .review-layout { gap: 5%; grid-template-columns: minmax(190px, .34fr) minmax(0, 1fr); }
   .review-aside { padding-left: 0; }
-  .review-aside h2 { font-size: clamp(38px, 4.6vw, 50px); }
+  .review-aside h2 { font-size: clamp(38px, 4.6vw, 50px); letter-spacing: -.015em; line-height: 1.1; }
   .form-section, .contact-section { padding-left: 34px; padding-right: 34px; }
   .form-navigation { padding-left: 34px; padding-right: 34px; }
   .section-heading { gap: 16px; }
@@ -220,11 +220,11 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .header-meta { display: none; }
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
-  .hero h1 { font-size: clamp(53px, 12vw, 78px); line-height: 1.02; max-width: 580px; }
+  .hero h1 { font-size: clamp(44px, 9.5vw, 70px); letter-spacing: -.04em; line-height: 1.06; max-width: 100%; }
   .hero-visual { margin: 0 auto; min-height: 350px; width: min(100%, 530px); }
   .review-layout { gap: 35px; grid-template-columns: 1fr; }
   .review-aside { padding: 0; position: static; }
-  .review-aside h2 { font-size: clamp(38px, 6vw, 54px); line-height: 1.12; max-width: 100%; }
+  .review-aside h2 { font-size: clamp(36px, 6vw, 52px); letter-spacing: -.015em; line-height: 1.1; max-width: 100%; }
   .aside-copy { max-width: 480px; }
   .aside-location { max-width: 390px; }
 }
@@ -235,7 +235,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero-visual { min-height: 360px; }
   .review-layout { gap: 42px; }
   .review-aside { padding-top: 0; }
-  .review-aside h2 { font-size: clamp(42px, 6vw, 54px); }
+  .review-aside h2 { font-size: clamp(40px, 6vw, 52px); }
   .form-section, .contact-section { padding-left: 32px; padding-right: 32px; }
   .form-navigation { padding-left: 32px; padding-right: 32px; }
   .section-heading h2, .contact-heading h2 { font-size: 23px; line-height: 1.5; }
@@ -259,7 +259,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }
-  .hero h1 { font-size: clamp(42px, 13vw, 56px); letter-spacing: -.055em; line-height: 1.05; max-width: 100%; }
+  .hero h1 { font-size: clamp(38px, 11.5vw, 50px); letter-spacing: -.035em; line-height: 1.08; max-width: 100%; }
   .hero-description { font-size: 13px; margin-top: 24px; }
   .hero-stamp { margin-top: 30px; }
   .hero-visual { min-height: 275px; }
@@ -272,7 +272,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero-note-top { right: 0; top: 2px; }
   .hero-note-bottom { bottom: 4px; left: 35%; }
   .review-layout { padding-bottom: 60px; }
-  .review-aside h2 { font-size: clamp(32px, 9.4vw, 38px); letter-spacing: -.02em; line-height: 1.13; max-width: 100%; }
+  .review-aside h2 { font-size: clamp(30px, 8.8vw, 36px); letter-spacing: -.01em; line-height: 1.1; max-width: 100%; }
   .aside-copy { font-size: 14px; line-height: 1.8; max-width: none; }
   .step-line { margin-bottom: 37px; }
   .form-section, .contact-section { padding-left: 20px; padding-right: 20px; }

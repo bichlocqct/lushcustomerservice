@@ -28,8 +28,8 @@ const ratingOptions = [
   {
     value: 3,
     label: 'Ổn',
-    image: '/bathbombs/lush-rating-sky-blue-cutout.png',
-    alt: 'Bath bomb LUSH màu xanh da trời, nền trong suốt',
+    image: '/bathbombs/lush-rating-pink-cutout.png',
+    alt: 'Bath bomb LUSH màu hồng, nền trong suốt',
   },
   {
     value: 4,
