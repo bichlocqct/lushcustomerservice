@@ -16,32 +16,32 @@ const ratingOptions = [
   {
     value: 1,
     label: 'Chưa trọn vẹn',
-    image: '/bathbombs/bathbomb-pink-lilac-cutout.png',
-    alt: 'Bath bomb màu hồng tím, nền trong suốt',
+    image: '/bathbombs/lush-rating-deep-blue.png',
+    alt: 'Bath bomb LUSH màu xanh dương đậm, nền trong suốt',
   },
   {
     value: 2,
     label: 'Cần cải thiện',
-    image: '/bathbombs/bathbomb-sunny-cutout.png',
-    alt: 'Bath bomb màu vàng hồng, nền trong suốt',
+    image: '/bathbombs/lush-rating-blue.png',
+    alt: 'Bath bomb LUSH màu xanh lam, nền trong suốt',
   },
   {
     value: 3,
     label: 'Ổn',
-    image: '/bathbombs/bathbomb-white-cutout.png',
-    alt: 'Bath bomb màu trắng có hình sao hồng, nền trong suốt',
+    image: '/bathbombs/lush-rating-sky-blue.png',
+    alt: 'Bath bomb LUSH màu xanh da trời, nền trong suốt',
   },
   {
     value: 4,
     label: 'Rất tốt',
-    image: '/bathbombs/bathbomb-rose-cutout.png',
-    alt: 'Bath bomb màu hồng, nền trong suốt',
+    image: '/bathbombs/lush-rating-sun-yellow.png',
+    alt: 'Bath bomb LUSH màu vàng nắng, nền trong suốt',
   },
   {
     value: 5,
     label: 'Tuyệt vời',
-    image: '/bathbombs/bathbomb-fifth-cutout.png',
-    alt: 'Bath bomb nhiều màu tím, xanh, vàng và hồng, nền trong suốt',
+    image: '/bathbombs/lush-rating-orange.png',
+    alt: 'Bath bomb LUSH màu cam, nền trong suốt',
   },
 ]
 
