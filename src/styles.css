@@ -123,9 +123,17 @@ button:disabled { cursor: wait; }
 .rating-option:focus-visible, .toggle-option:focus-within, .choice-chip:focus-within, .consent-row:focus-within { outline: 2px solid var(--lime); outline-offset: 3px; }
 .rating-option.is-selected { background: #ededeb; border-color: rgba(23, 23, 23, .25); }
 .rating-image-wrap { display: block; height: 98px; overflow: hidden; width: 100%; }
-.rating-image-wrap img { filter: grayscale(1) saturate(.2); height: 100%; object-fit: contain; opacity: .48; transform: scale(.96); transition: filter .4s ease, opacity .4s ease, transform .4s cubic-bezier(.16,1,.3,1); width: 100%; }
+.rating-image-wrap img { filter: saturate(1); height: 100%; object-fit: contain; opacity: .78; transform: scale(.96); transition: filter .4s ease, opacity .4s ease, transform .4s cubic-bezier(.16,1,.3,1); width: 100%; }
 .rating-option:hover img, .rating-option.is-lit img, .rating-option.is-selected img { filter: grayscale(0) saturate(1); opacity: 1; transform: scale(1.04); }
 .rating-option.is-selected img { transform: scale(1.04) rotate(-4deg); }
+.rating-option--muted-blue .rating-image-wrap img,
+.rating-option--muted-blue:hover img,
+.rating-option--muted-blue.is-lit img,
+.rating-option--muted-blue.is-selected img { filter: grayscale(1) sepia(.7) hue-rotate(172deg) saturate(1.8) brightness(.72); }
+.rating-option--muted-purple .rating-image-wrap img,
+.rating-option--muted-purple:hover img,
+.rating-option--muted-purple.is-lit img,
+.rating-option--muted-purple.is-selected img { filter: grayscale(1) sepia(.78) hue-rotate(230deg) saturate(1.8) brightness(.7); }
 .rating-number { color: var(--green); font-size: 16px; font-weight: 700; letter-spacing: .06em; margin-top: 7px; }
 .rating-label { font-size: 15px; line-height: 1.35; margin-top: 6px; text-align: center; }
 

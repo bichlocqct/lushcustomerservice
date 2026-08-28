@@ -18,12 +18,14 @@ const ratingOptions = [
     label: 'Chưa trọn vẹn',
     image: '/bathbombs/lush-rating-deep-blue-cutout.png',
     alt: 'Bath bomb LUSH màu xanh dương đậm, nền trong suốt',
+    tone: 'muted-blue',
   },
   {
     value: 2,
     label: 'Cần cải thiện',
     image: '/bathbombs/lush-rating-purple-cutout.png',
     alt: 'Bath bomb LUSH màu tím, nền trong suốt',
+    tone: 'muted-purple',
   },
   {
     value: 3,
@@ -34,14 +36,14 @@ const ratingOptions = [
   {
     value: 4,
     label: 'Rất tốt',
-    image: '/bathbombs/lush-rating-sun-yellow-cutout.png',
-    alt: 'Bath bomb LUSH màu vàng nắng, nền trong suốt',
+    image: '/bathbombs/bathbomb-sunny-cutout.png',
+    alt: 'Bath bomb LUSH nhiều màu tươi sáng, nền trong suốt',
   },
   {
     value: 5,
     label: 'Tuyệt vời',
-    image: '/bathbombs/lush-rating-orange-cutout.png',
-    alt: 'Bath bomb LUSH màu cam, nền trong suốt',
+    image: '/bathbombs/bathbomb-fifth-cutout.png',
+    alt: 'Bath bomb LUSH nhiều màu rực rỡ, nền trong suốt',
   },
 ]
 
@@ -107,7 +109,7 @@ function RatingSelector({ rating, onChange }) {
 
         return (
           <button
-            className={`rating-option ${isSelected ? 'is-selected' : ''} ${isLit ? 'is-lit' : ''}`}
+            className={`rating-option ${option.tone ? `rating-option--${option.tone}` : ''} ${isSelected ? 'is-selected' : ''} ${isLit ? 'is-lit' : ''}`}
             type="button"
             role="radio"
             aria-checked={isSelected}
