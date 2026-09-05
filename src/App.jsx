@@ -18,7 +18,6 @@ const ratingOptions = [
     label: 'Chưa trọn vẹn',
     image: '/bathbombs/lush-rating-deep-blue-cutout.png',
     alt: 'Bath bomb LUSH màu xanh dương đậm, nền trong suốt',
-    tone: 'muted-blue',
   },
   {
     value: 2,
@@ -41,8 +40,8 @@ const ratingOptions = [
   {
     value: 5,
     label: 'Tuyệt vời',
-    image: '/bathbombs/bathbomb-fifth-cutout.png',
-    alt: 'Bath bomb LUSH nhiều màu rực rỡ, nền trong suốt',
+    image: '/bathbombs/lush-rating-orange-pink-cutout.png',
+    alt: 'Bath bomb LUSH màu cam với các dải màu hồng và vàng, nền trong suốt',
   },
 ]
 
