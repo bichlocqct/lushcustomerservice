@@ -62,11 +62,9 @@ button:disabled { cursor: wait; }
 .ambient-art { animation: float-ambient 8s ease-in-out infinite; height: auto; object-fit: contain; opacity: .6; position: absolute; }
 .ambient-art-lime { right: -320px; top: 390px; transform: rotate(9deg); width: 640px; }
 .ambient-art-lavender { animation-delay: -2s; left: -430px; top: 970px; transform: rotate(-16deg); width: 580px; }
-.ambient-art-lemon { animation-delay: -4s; right: -220px; top: 1370px; transform: rotate(16deg); width: 448px; }
+.ambient-art-lemon { animation-delay: -4s; left: -260px; top: 840px; transform: rotate(16deg); width: 500px; }
 .ambient-art-tomato { animation-delay: -6s; left: -230px; top: 1650px; transform: rotate(-12deg); width: 500px; }
-.ambient-art-half-fruit { animation-delay: -1s; opacity: .48; right: -260px; top: 840px; transform: rotate(-8deg); width: 430px; }
-.ambient-art-side-hero { animation-delay: -3s; right: -170px; top: 180px; transform: rotate(11deg); width: 300px; }
-.ambient-art-side-review { animation-delay: -5s; right: -190px; top: 900px; transform: rotate(-12deg); width: 320px; }
+.ambient-art-side-hero { animation-delay: -3s; left: -170px; top: 180px; transform: rotate(11deg); width: 300px; }
 
 .topbar { align-items: center; background: var(--green); border-bottom: 1px solid var(--green); display: flex; justify-content: space-between; padding: 20px 24px; position: relative; z-index: 1; }
 .brand { color: var(--ink); display: inline-flex; flex-direction: column; text-decoration: none; }
@@ -224,11 +222,9 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .page-width { width: min(100% - 40px, 680px); }
   .ambient-art-lime { right: -260px; width: 520px; }
   .ambient-art-lavender { left: -350px; width: 470px; }
-  .ambient-art-lemon { right: -190px; width: 360px; }
+  .ambient-art-lemon { left: -220px; top: 840px; width: 400px; }
   .ambient-art-tomato { left: -210px; width: 400px; }
-  .ambient-art-half-fruit { right: -170px; width: 330px; }
-  .ambient-art-side-hero { right: -165px; top: 250px; width: 270px; }
-  .ambient-art-side-review { right: -180px; top: 900px; width: 290px; }
+  .ambient-art-side-hero { left: -165px; top: 250px; width: 270px; }
   .header-meta { display: none; }
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
@@ -272,11 +268,9 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .ambient-art { opacity: .48; }
   .ambient-art-lime { right: -210px; top: 470px; width: 420px; }
   .ambient-art-lavender { left: -350px; top: 1020px; width: 390px; }
-  .ambient-art-lemon { right: -175px; top: 1390px; width: 330px; }
+  .ambient-art-lemon { left: -220px; top: 820px; width: 350px; }
   .ambient-art-tomato { left: -190px; top: 1650px; width: 350px; }
-  .ambient-art-half-fruit { right: -145px; top: 820px; width: 290px; }
-  .ambient-art-side-hero { right: -190px; top: 260px; width: 260px; }
-  .ambient-art-side-review { right: -175px; top: 900px; width: 270px; }
+  .ambient-art-side-hero { left: -190px; top: 260px; width: 260px; }
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }

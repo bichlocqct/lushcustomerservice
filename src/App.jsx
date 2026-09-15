@@ -234,9 +234,7 @@ function App() {
         <img className="ambient-art ambient-art-lavender" src="/lush-elements/lavender.png" alt="" />
         <img className="ambient-art ambient-art-lemon" src="/lush-elements/lemon.png" alt="" />
         <img className="ambient-art ambient-art-tomato" src="/lush-elements/tomato.png" alt="" />
-        <img className="ambient-art ambient-art-half-fruit" src="/lush-elements/tomato.png" alt="" />
         <img className="ambient-art ambient-art-side-hero" src="/lush-elements/orange.png" alt="" />
-        <img className="ambient-art ambient-art-side-review" src="/lush-elements/lemon.png" alt="" />
       </div>
 
       <header className="topbar page-width">
