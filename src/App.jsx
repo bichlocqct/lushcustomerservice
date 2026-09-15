@@ -235,6 +235,8 @@ function App() {
         <img className="ambient-art ambient-art-lemon" src="/lush-elements/lemon.png" alt="" />
         <img className="ambient-art ambient-art-tomato" src="/lush-elements/tomato.png" alt="" />
         <img className="ambient-art ambient-art-half-fruit" src="/lush-elements/tomato.png" alt="" />
+        <img className="ambient-art ambient-art-side-hero" src="/lush-elements/orange.png" alt="" />
+        <img className="ambient-art ambient-art-side-review" src="/lush-elements/lemon.png" alt="" />
       </div>
 
       <header className="topbar page-width">
@@ -251,7 +253,6 @@ function App() {
 
       <section className="hero page-width">
         <div className="hero-copy">
-          <img className="hero-copy-fruit" src="/lush-elements/orange.png" alt="" aria-hidden="true" />
           <p className="eyebrow"><img className="eyebrow-fruit" src="/lush-elements/strawberry.png" alt="" aria-hidden="true" /> LUSH service notes</p>
           <h1><span>Mỗi lần ghé LUSH</span><span>đều đáng nhớ hơn</span></h1>
           <p className="hero-description">
@@ -277,7 +278,6 @@ function App() {
 
       <section className="review-layout page-width" id="review-form">
         <aside className="review-aside">
-          <img className="review-aside-fruit" src="/lush-elements/lemon.png" alt="" aria-hidden="true" />
           <div className="step-heading">
             <span className="step-current">0{currentStep}</span>
             <span className="step-total">/ 02</span>
