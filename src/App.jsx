@@ -260,14 +260,12 @@ function App() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Các loại trái cây tươi của LUSH">
+        <div className="hero-visual" aria-label="Các bath bomb của LUSH">
           <div className="hero-note hero-note-top">made with care <ArrowUpRight size={15} /></div>
-          <img className="hero-fruit-backdrop hero-fruit-backdrop-main" src="/lush-elements/raspberry.png" alt="" aria-hidden="true" />
-          <img className="hero-fruit-backdrop hero-fruit-backdrop-small" src="/lush-elements/blueberry.png" alt="" aria-hidden="true" />
-          <img className="hero-fruit hero-fruit-back" src="/lush-elements/orange.png" alt="Quả cam minh họa" />
-          <img className="hero-fruit hero-fruit-main" src="/lush-elements/strawberry.png" alt="Quả dâu tây minh họa" />
-          <img className="hero-fruit hero-fruit-small" src="/lush-elements/lime.png" alt="Quả chanh xanh minh họa" />
-          <div className="hero-note hero-note-bottom">made fresh, every day</div>
+          <img className="hero-bomb hero-bomb-back" src="/bathbombs/bathbomb-white-cutout.png" alt="Bath bomb LUSH màu trắng hồng" />
+          <img className="hero-bomb hero-bomb-main" src="/bathbombs/bathbomb-pink-lilac-cutout.png" alt="Bath bomb LUSH màu hồng tím" />
+          <img className="hero-bomb hero-bomb-small" src="/bathbombs/bathbomb-rose-cutout.png" alt="Bath bomb LUSH màu hồng" />
+          <div className="hero-note hero-note-bottom">one bath at a time</div>
         </div>
       </section>
 
