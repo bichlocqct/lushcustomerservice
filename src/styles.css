@@ -65,6 +65,7 @@ button:disabled { cursor: wait; }
 .ambient-art-lemon { animation-delay: -4s; left: -260px; top: 840px; transform: rotate(16deg); width: 500px; }
 .ambient-art-tomato { animation-delay: -6s; left: -230px; top: 1650px; transform: rotate(-12deg); width: 500px; }
 .ambient-art-side-hero { animation-delay: -3s; left: -170px; top: 180px; transform: rotate(11deg); width: 300px; }
+.ambient-art-coconut { animation-delay: -7s; right: -220px; top: 1220px; transform: rotate(8deg); width: 380px; }
 
 .topbar { align-items: center; background: var(--green); border-bottom: 1px solid var(--green); display: flex; justify-content: space-between; padding: 20px 24px; position: relative; z-index: 1; }
 .brand { color: var(--ink); display: inline-flex; flex-direction: column; text-decoration: none; }
@@ -225,6 +226,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .ambient-art-lemon { left: -220px; top: 840px; width: 400px; }
   .ambient-art-tomato { left: -210px; width: 400px; }
   .ambient-art-side-hero { left: -165px; top: 250px; width: 270px; }
+  .ambient-art-coconut { right: -190px; top: 1160px; width: 330px; }
   .header-meta { display: none; }
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
@@ -271,6 +273,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .ambient-art-lemon { left: -220px; top: 820px; width: 350px; }
   .ambient-art-tomato { left: -190px; top: 1650px; width: 350px; }
   .ambient-art-side-hero { left: -190px; top: 260px; width: 260px; }
+  .ambient-art-coconut { right: -170px; top: 1120px; width: 300px; }
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }
