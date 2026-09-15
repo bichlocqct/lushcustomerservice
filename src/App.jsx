@@ -7,7 +7,6 @@ import {
   CheckCircle,
   FlowerLotus,
   MapPin,
-  Sparkle,
 } from '@phosphor-icons/react'
 import { submitReview } from './lib/api.js'
 
@@ -247,7 +246,7 @@ function App() {
 
       <section className="hero page-width">
         <div className="hero-copy">
-          <p className="eyebrow"><Sparkle size={15} weight="fill" /> LUSH service notes</p>
+          <p className="eyebrow"><img className="eyebrow-fruit" src="/lush-elements/strawberry.png" alt="" aria-hidden="true" /> LUSH service notes</p>
           <h1><span>Mỗi lần ghé LUSH</span><span>đều đáng nhớ hơn</span></h1>
           <p className="hero-description">
             Chia sẻ vài dòng về trải nghiệm hôm nay. Những điều nhỏ bạn nói ra giúp chúng mình chăm chút cửa hàng tốt hơn mỗi ngày.
@@ -429,6 +428,12 @@ function App() {
             )}
           </form>
         )}
+      </section>
+
+      <section className="closing-art" aria-hidden="true">
+        <img className="closing-art-background" src="/lush-elements/lush-fruit-background.png" alt="" />
+        <img className="closing-art-badge closing-art-badge-fresh" src="/lush-elements/fresh-badge.png" alt="" />
+        <img className="closing-art-badge closing-art-badge-make-fresh" src="/lush-elements/make-fresh-badge.png" alt="" />
       </section>
 
       <footer className="footer page-width">
