@@ -230,8 +230,8 @@ function App() {
   return (
     <main className="site-shell">
       <div className="ambient-art-layer" aria-hidden="true">
-        <img className="ambient-art ambient-art-lavender" src="/lush-elements/lavender.png" alt="" />
-        <img className="ambient-art ambient-art-mint" src="/lush-elements/mint-leaf.png" alt="" />
+        <img className="ambient-art ambient-art-orange" src="/lush-elements/orange.png" alt="" />
+        <img className="ambient-art ambient-art-strawberry" src="/lush-elements/strawberry.png" alt="" />
         <img className="ambient-art ambient-art-lemon" src="/lush-elements/lemon.png" alt="" />
         <img className="ambient-art ambient-art-tomato" src="/lush-elements/tomato.png" alt="" />
       </div>

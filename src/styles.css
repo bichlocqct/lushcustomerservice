@@ -60,10 +60,10 @@ button:disabled { cursor: wait; }
 .page-width { width: min(1220px, calc(100% - 64px)); margin: 0 auto; position: relative; }
 .ambient-art-layer { inset: 0; pointer-events: none; position: absolute; z-index: 0; }
 .ambient-art { animation: float-ambient 8s ease-in-out infinite; height: auto; object-fit: contain; position: absolute; }
-.ambient-art-lavender { right: -24px; top: 505px; transform: rotate(9deg); width: 160px; }
-.ambient-art-mint { animation-delay: -2s; left: -20px; top: 1050px; transform: rotate(-16deg); width: 145px; }
-.ambient-art-lemon { animation-delay: -4s; right: -14px; top: 1380px; transform: rotate(16deg); width: 112px; }
-.ambient-art-tomato { animation-delay: -6s; left: -22px; top: 1660px; transform: rotate(-12deg); width: 125px; }
+.ambient-art-orange { right: -300px; top: 390px; transform: rotate(9deg); width: 640px; }
+.ambient-art-strawberry { animation-delay: -2s; left: -280px; top: 970px; transform: rotate(-16deg); width: 580px; }
+.ambient-art-lemon { animation-delay: -4s; right: -220px; top: 1370px; transform: rotate(16deg); width: 448px; }
+.ambient-art-tomato { animation-delay: -6s; left: -230px; top: 1650px; transform: rotate(-12deg); width: 500px; }
 
 .topbar { align-items: center; background: var(--green); border-bottom: 1px solid var(--green); display: flex; justify-content: space-between; padding: 20px 24px; position: relative; z-index: 1; }
 .brand { color: var(--ink); display: inline-flex; flex-direction: column; text-decoration: none; }
@@ -219,10 +219,10 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 
 @media (max-width: 880px) {
   .page-width { width: min(100% - 40px, 680px); }
-  .ambient-art-lavender { right: -34px; width: 128px; }
-  .ambient-art-mint { left: -30px; width: 116px; }
-  .ambient-art-lemon { right: -25px; width: 94px; }
-  .ambient-art-tomato { left: -28px; width: 104px; }
+  .ambient-art-orange { right: -280px; width: 520px; }
+  .ambient-art-strawberry { left: -250px; width: 470px; }
+  .ambient-art-lemon { right: -190px; width: 360px; }
+  .ambient-art-tomato { left: -210px; width: 400px; }
   .header-meta { display: none; }
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
@@ -264,10 +264,10 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 @media (max-width: 560px) {
   .page-width { width: calc(100% - 28px); }
   .ambient-art { opacity: .82; }
-  .ambient-art-lavender { right: -52px; top: 500px; width: 106px; }
-  .ambient-art-mint { left: -42px; top: 1040px; width: 98px; }
-  .ambient-art-lemon { right: -34px; top: 1390px; width: 82px; }
-  .ambient-art-tomato { left: -38px; top: 1660px; width: 90px; }
+  .ambient-art-orange { right: -255px; top: 470px; width: 420px; }
+  .ambient-art-strawberry { left: -235px; top: 1020px; width: 390px; }
+  .ambient-art-lemon { right: -175px; top: 1390px; width: 330px; }
+  .ambient-art-tomato { left: -190px; top: 1650px; width: 350px; }
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }
