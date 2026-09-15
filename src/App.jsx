@@ -260,14 +260,14 @@ function App() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Các bath bomb của LUSH">
+        <div className="hero-visual" aria-label="Các loại trái cây tươi của LUSH">
           <div className="hero-note hero-note-top">made with care <ArrowUpRight size={15} /></div>
           <div className="visual-blob visual-blob-green" />
           <div className="visual-blob visual-blob-pink" />
-          <img className="hero-bomb hero-bomb-back" src="/bathbombs/bathbomb-white-cutout.png" alt="Bath bomb trắng hồng" />
-          <img className="hero-bomb hero-bomb-main" src="/bathbombs/bathbomb-pink-lilac-cutout.png" alt="Bath bomb hồng tím" />
-          <img className="hero-bomb hero-bomb-small" src="/bathbombs/bathbomb-rose-cutout.png" alt="Bath bomb hồng" />
-          <div className="hero-note hero-note-bottom">one bath at a time</div>
+          <img className="hero-fruit hero-fruit-back" src="/lush-elements/orange.png" alt="Quả cam minh họa" />
+          <img className="hero-fruit hero-fruit-main" src="/lush-elements/strawberry.png" alt="Quả dâu tây minh họa" />
+          <img className="hero-fruit hero-fruit-small" src="/lush-elements/lime.png" alt="Quả chanh xanh minh họa" />
+          <div className="hero-note hero-note-bottom">made fresh, every day</div>
         </div>
       </section>
 
@@ -432,8 +432,6 @@ function App() {
 
       <section className="closing-art" aria-hidden="true">
         <img className="closing-art-background" src="/lush-elements/lush-fruit-background.png" alt="" />
-        <img className="closing-art-badge closing-art-badge-fresh" src="/lush-elements/fresh-badge.png" alt="" />
-        <img className="closing-art-badge closing-art-badge-make-fresh" src="/lush-elements/make-fresh-badge.png" alt="" />
       </section>
 
       <footer className="footer page-width">
