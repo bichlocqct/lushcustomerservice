@@ -60,10 +60,6 @@ app.get(['/api/health', '/health'], async (_request, response) => {
   }
 })
 
-function normalizePhone(phone = '') {
-  return String(phone).trim()
-}
-
 function getVietnamDateParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: vietnamTimeZone,
@@ -96,8 +92,6 @@ function validateReview(body = {}) {
   const dissatisfactions = Array.isArray(body.dissatisfactions) ? body.dissatisfactions : []
   const impressionNote = typeof body.impressionNote === 'string' ? body.impressionNote.trim() : ''
   const dissatisfactionNote = typeof body.dissatisfactionNote === 'string' ? body.dissatisfactionNote.trim() : ''
-  const customerName = typeof body.customerName === 'string' ? body.customerName.trim() : ''
-  const phone = normalizePhone(body.phone)
   const errors = []
 
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) errors.push('Mức đánh giá không hợp lệ.')
@@ -105,16 +99,13 @@ function validateReview(body = {}) {
   if (impressions.includes('other') && !impressionNote) errors.push('Vui lòng chia sẻ thêm điều bạn yêu thích.')
   if (dissatisfactions.some((item) => !allowedDissatisfactions.has(item))) errors.push('Mục chưa hài lòng không hợp lệ.')
   if (!allowedStores.has(body.store)) errors.push('Cửa hàng không hợp lệ.')
-  if (!/^\d+$/.test(phone)) errors.push('Số điện thoại chỉ được chứa chữ số.')
   if (impressionNote.length > 1000 || dissatisfactionNote.length > 1000) errors.push('Nội dung chia sẻ quá dài.')
-  if (customerName.length > 80) errors.push('Tên không hợp lệ.')
-  if (body.consentToContact !== true) errors.push('Cần có sự đồng ý liên hệ.')
 
-  return { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone }
+  return { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote }
 }
 
 app.post(['/api/reviews', '/reviews'], async (request, response) => {
-  const { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote, customerName, phone } = validateReview(request.body)
+  const { errors, rating, impressions, impressionNote, dissatisfactions, dissatisfactionNote } = validateReview(request.body)
   if (errors.length) return response.status(400).json({ message: errors[0], errors })
 
   const submittedAt = getVietnamTimestamp()
@@ -127,10 +118,10 @@ app.post(['/api/reviews', '/reviews'], async (request, response) => {
     impression_note: impressionNote,
     dissatisfactions,
     dissatisfaction_note: dissatisfactionNote,
-    customer_name: customerName,
-    phone,
+    customer_name: '',
+    phone: '',
     store: request.body.store || 'LUSH Vincom Đồng Khởi',
-    consent_to_contact: true,
+    consent_to_contact: false,
   }
 
   if (!database) {

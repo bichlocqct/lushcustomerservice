@@ -7,7 +7,6 @@ import {
   CheckCircle,
   FlowerLotus,
   MapPin,
-  Phone,
   Sparkle,
 } from '@phosphor-icons/react'
 import { submitReview } from './lib/api.js'
@@ -154,10 +153,7 @@ function App() {
   const [impressionNote, setImpressionNote] = useState('')
   const [dissatisfactions, setDissatisfactions] = useState([])
   const [dissatisfactionNote, setDissatisfactionNote] = useState('')
-  const [customerName, setCustomerName] = useState('')
-  const [phone, setPhone] = useState('')
   const [store, setStore] = useState(storeOptions[0])
-  const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
@@ -176,10 +172,7 @@ function App() {
     setImpressionNote('')
     setDissatisfactions([])
     setDissatisfactionNote('')
-    setCustomerName('')
-    setPhone('')
     setStore(storeOptions[0])
-    setConsent(false)
     setStatus('idle')
     setErrorMessage('')
     setFieldErrors({})
@@ -204,13 +197,6 @@ function App() {
         errors.impressionNote = 'Bạn hãy chia sẻ thêm điều mình yêu thích.'
       }
     }
-    if (pageToValidate === 2) {
-      const normalizedPhone = phone.replace(/\D/g, '')
-      if (!/^\d+$/.test(normalizedPhone)) {
-        errors.phone = 'Vui lòng nhập số điện thoại chỉ bằng chữ số.'
-      }
-      if (!consent) errors.consent = 'Vui lòng đồng ý để LUSH có thể liên hệ khi cần.'
-    }
     setFieldErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -233,10 +219,7 @@ function App() {
         impressionNote: impressionNote.trim(),
         dissatisfactions,
         dissatisfactionNote: dissatisfactionNote.trim(),
-        customerName: customerName.trim(),
-        phone: phone.replace(/\D/g, ''),
         store,
-        consentToContact: consent,
       })
       setStatus('success')
     } catch (error) {
@@ -313,6 +296,7 @@ function App() {
                     <div>
                       <span className="section-number">01 / 02</span>
                       <h2>Buổi tư vấn hôm nay xứng đáng với mấy viên bath bomb?</h2>
+                      <span className="question-english">How many bath bombs would today’s consultation be worth?</span>
                     </div>
                     <span className="required-note">Bắt buộc</span>
                   </div>
@@ -326,6 +310,7 @@ function App() {
                     <div>
                       <span className="section-number">Điểm hài lòng</span>
                       <h2>Điều gì đã để lại ấn tượng với bạn hôm nay?</h2>
+                      <span className="question-english">What made your visit memorable today?</span>
                     </div>
                     <span className="required-note">Chọn nhiều</span>
                   </div>
@@ -350,7 +335,10 @@ function App() {
                   {fieldErrors.impressions ? <p className="field-error">{fieldErrors.impressions}</p> : null}
                   {impressions.includes('other') ? (
                     <label className="input-group other-feedback-group">
-                      <span>Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?</span>
+                      <span>
+                        Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?
+                        <small>Would you like to share anything else you enjoyed?</small>
+                      </span>
                       <textarea
                         className={fieldErrors.impressionNote ? 'has-error' : ''}
                         value={impressionNote}
@@ -381,6 +369,7 @@ function App() {
                     <div>
                       <span className="section-number">02 / 02</span>
                       <h2>Bạn chưa hài lòng về điều gì hôm nay?</h2>
+                      <span className="question-english">What could we improve today?</span>
                     </div>
                     <span className="optional-note">Không bắt buộc</span>
                   </div>
@@ -398,46 +387,33 @@ function App() {
                     })}
                   </div>
                   <label className="input-group note-group">
-                    <span>Chia sẻ thêm nếu bạn muốn (không bắt buộc)</span>
+                    <span>
+                      Chia sẻ thêm nếu bạn muốn (không bắt buộc)
+                      <small>Share anything else if you wish (optional)</small>
+                    </span>
                     <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng có thể tạo nên thay đổi lớn…" rows="3" maxLength="1000" />
                   </label>
                 </section>
 
-                <section className="contact-section">
-                  <div className="contact-heading">
-                    <div className="contact-icon"><Phone size={21} weight="light" /></div>
+                <section className="store-section">
+                  <div className="section-heading">
                     <div>
-                      <span className="section-number">Thông tin liên hệ</span>
-                      <h2>LUSH có thể gọi cho bạn chứ?</h2>
-                      <p>Chúng mình chỉ liên hệ để trao đổi thêm về trải nghiệm này.</p>
+                      <span className="section-number">Địa điểm trải nghiệm</span>
+                      <h2>Bạn đã ghé cửa hàng nào hôm nay?</h2>
+                      <span className="question-english">Which LUSH store did you visit today?</span>
                     </div>
+                    <span className="required-note">Bắt buộc</span>
                   </div>
-                  <div className="contact-grid">
-                    <label className="input-group">
-                      <span>Tên của bạn</span>
-                      <input type="text" value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Bạn muốn được gọi là gì?" autoComplete="name" maxLength="80" />
-                    </label>
-                    <label className="input-group">
-                      <span>Số điện thoại</span>
-                      <input className={fieldErrors.phone ? 'has-error' : ''} type="tel" value={phone} onChange={(event) => { setPhone(event.target.value.replace(/\D/g, '')); setFieldErrors((current) => ({ ...current, phone: '' })) }} placeholder="Nhập số điện thoại" autoComplete="tel" inputMode="numeric" pattern="[0-9]*" />
-                      {fieldErrors.phone ? <small className="field-error">{fieldErrors.phone}</small> : null}
-                    </label>
-                  </div>
+                  <p className="section-helper">Chọn cửa hàng để LUSH hiểu rõ hơn về trải nghiệm của bạn.</p>
                   <label className="input-group store-group">
-                    <span>Cửa hàng bạn đã ghé</span>
+                    <span>Cửa hàng đã ghé <small>Store visited</small></span>
                     <select value={store} onChange={(event) => setStore(event.target.value)}>
                       {storeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
                     </select>
                   </label>
-                  <label className={`consent-row ${fieldErrors.consent ? 'has-error' : ''}`}>
-                    <input type="checkbox" checked={consent} onChange={(event) => { setConsent(event.target.checked); setFieldErrors((current) => ({ ...current, consent: '' })) }} />
-                    <span className="consent-mark" aria-hidden="true">{consent ? <Check size={13} weight="bold" /> : null}</span>
-                    <span>Tôi đồng ý để LUSH lưu thông tin và liên hệ với tôi về phản hồi này.</span>
-                  </label>
-                  {fieldErrors.consent ? <p className="field-error consent-error">{fieldErrors.consent}</p> : null}
                   {status === 'error' ? <div className="submit-error" role="alert">{errorMessage}</div> : null}
                   <div className="submit-row">
-                    <p>Thông tin của bạn được bảo mật và chỉ dùng cho mục đích chăm sóc trải nghiệm.</p>
+                    <p>Cảm ơn bạn đã dành thời gian chia sẻ trải nghiệm cùng LUSH.</p>
                     <div className="navigation-actions">
                       <button className="back-button" type="button" onClick={() => changePage(1)}>
                         <ArrowLeft size={18} weight="bold" /> Quay lại
