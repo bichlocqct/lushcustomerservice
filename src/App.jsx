@@ -5,7 +5,7 @@ import {
   ArrowUpRight,
   Check,
   CheckCircle,
-  FlowerLotus,
+  Heart,
   MapPin,
 } from '@phosphor-icons/react'
 import { submitReview } from './lib/api.js'
@@ -230,8 +230,8 @@ function App() {
   return (
     <main className="site-shell">
       <div className="ambient-art-layer" aria-hidden="true">
-        <img className="ambient-art ambient-art-orange" src="/lush-elements/orange.png" alt="" />
-        <img className="ambient-art ambient-art-strawberry" src="/lush-elements/strawberry.png" alt="" />
+        <img className="ambient-art ambient-art-lime" src="/lush-elements/lime.png" alt="" />
+        <img className="ambient-art ambient-art-lavender" src="/lush-elements/lavender.png" alt="" />
         <img className="ambient-art ambient-art-lemon" src="/lush-elements/lemon.png" alt="" />
         <img className="ambient-art ambient-art-tomato" src="/lush-elements/tomato.png" alt="" />
       </div>
@@ -256,7 +256,7 @@ function App() {
             Chia sẻ vài dòng về trải nghiệm hôm nay. Những điều nhỏ bạn nói ra giúp chúng mình chăm chút cửa hàng tốt hơn mỗi ngày.
           </p>
           <div className="hero-stamp" aria-label="Thông tin khảo sát">
-            <div className="stamp-icon"><FlowerLotus size={22} weight="light" /></div>
+            <div className="stamp-icon"><Heart size={22} weight="fill" /></div>
             <div>
               <span className="stamp-kicker">Your voice matters</span>
               <span className="stamp-copy">Mất khoảng 60 giây</span>
