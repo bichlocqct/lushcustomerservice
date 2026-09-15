@@ -58,11 +58,14 @@ button:disabled { cursor: wait; }
 
 .site-shell { min-height: 100dvh; overflow: hidden; position: relative; }
 .page-width { width: min(1220px, calc(100% - 64px)); margin: 0 auto; position: relative; }
-.ambient-shape { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(1px); opacity: .55; }
-.ambient-shape-one { width: 360px; height: 360px; background: #eeee78; top: 480px; right: -220px; }
-.ambient-shape-two { width: 230px; height: 230px; background: #fffdb8; top: 1140px; left: -150px; }
+.ambient-art-layer { inset: 0; pointer-events: none; position: absolute; z-index: 0; }
+.ambient-art { animation: float-ambient 8s ease-in-out infinite; height: auto; object-fit: contain; position: absolute; }
+.ambient-art-lavender { right: -24px; top: 505px; transform: rotate(9deg); width: 160px; }
+.ambient-art-mint { animation-delay: -2s; left: -20px; top: 1050px; transform: rotate(-16deg); width: 145px; }
+.ambient-art-lemon { animation-delay: -4s; right: -14px; top: 1380px; transform: rotate(16deg); width: 112px; }
+.ambient-art-tomato { animation-delay: -6s; left: -22px; top: 1660px; transform: rotate(-12deg); width: 125px; }
 
-.topbar { align-items: center; background: var(--green); border-bottom: 1px solid var(--green); display: flex; justify-content: space-between; padding: 20px 24px; }
+.topbar { align-items: center; background: var(--green); border-bottom: 1px solid var(--green); display: flex; justify-content: space-between; padding: 20px 24px; position: relative; z-index: 1; }
 .brand { color: var(--ink); display: inline-flex; flex-direction: column; text-decoration: none; }
 .brand-logo { display: block; height: auto; width: 180px; }
 .header-meta { align-items: center; color: #cfcfcb; display: flex; font-size: 10px; gap: 10px; letter-spacing: .08em; text-transform: uppercase; }
@@ -70,7 +73,7 @@ button:disabled { cursor: wait; }
 .header-divider { background: rgba(255, 255, 255, .25); height: 14px; margin: 0 5px; width: 1px; }
 .date-label { color: var(--white); font-size: 9px; letter-spacing: .11em; }
 
-.hero { align-items: center; display: grid; gap: 8%; grid-template-columns: 1.02fr .98fr; min-height: 540px; padding: 72px 0 82px; }
+.hero { align-items: center; display: grid; gap: 8%; grid-template-columns: 1.02fr .98fr; min-height: 540px; padding: 72px 0 82px; position: relative; z-index: 1; }
 .hero-copy { max-width: 570px; padding-left: 5%; }
 .eyebrow, .aside-kicker, .stamp-kicker { align-items: center; color: var(--green); display: flex; font-size: 10px; font-weight: 700; gap: 8px; letter-spacing: .17em; margin: 0 0 25px; text-transform: uppercase; }
 .eyebrow-fruit { height: 22px; object-fit: contain; width: 22px; }
@@ -91,10 +94,10 @@ button:disabled { cursor: wait; }
 .hero-note-top { right: 1%; top: 3px; transform: rotate(8deg); }
 .hero-note-bottom { bottom: 20px; left: 33%; transform: rotate(-8deg); }
 
-.closing-art { background: #ffff99; height: clamp(330px, 42vw, 520px); margin-top: 0; overflow: hidden; pointer-events: none; position: relative; }
+.closing-art { background: #ffff99; height: clamp(330px, 42vw, 520px); margin-top: 0; overflow: hidden; pointer-events: none; position: relative; z-index: 1; }
 .closing-art-background { bottom: -1px; height: auto; left: 50%; max-width: none; position: absolute; transform: translateX(-50%); width: max(100%, 520px); }
 
-.review-layout { align-items: start; display: grid; gap: 9%; grid-template-columns: minmax(220px, .37fr) minmax(0, .92fr); padding-bottom: 0; }
+.review-layout { align-items: start; display: grid; gap: 9%; grid-template-columns: minmax(220px, .37fr) minmax(0, .92fr); padding-bottom: 0; position: relative; z-index: 1; }
 .review-aside { padding: 37px 0 0 5%; position: sticky; top: 20px; }
 .step-heading { align-items: baseline; display: flex; margin-bottom: 13px; }
 .step-current { color: var(--green); font-size: 43px; font-weight: 700; letter-spacing: -.08em; line-height: .8; }
@@ -187,12 +190,13 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 .success-orbit-one { right: -176px; top: -105px; }
 .success-orbit-two { bottom: -248px; left: -180px; width: 480px; height: 480px; }
 
-.footer { align-items: center; border-top: 1px solid var(--line); color: var(--muted); display: flex; font-size: 9px; justify-content: space-between; letter-spacing: .1em; padding: 22px 0 28px; text-transform: uppercase; }
+.footer { align-items: center; border-top: 1px solid var(--line); color: var(--muted); display: flex; font-size: 9px; justify-content: space-between; letter-spacing: .1em; padding: 22px 0 28px; position: relative; text-transform: uppercase; z-index: 1; }
 
 @keyframes float-bomb { 0%, 100% { transform: rotate(-9deg) translateY(0); } 50% { transform: rotate(-5deg) translateY(-12px); } }
 @keyframes float-bomb-back { 0%, 100% { transform: rotate(9deg) translateY(0); } 50% { transform: rotate(13deg) translateY(-9px); } }
 @keyframes float-bomb-small { 0%, 100% { transform: rotate(12deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-8px); } }
 @keyframes float-bomb-mobile { 0%, 100% { transform: rotate(-9deg) translate3d(0, 0, 0); } 50% { transform: rotate(-5deg) translate3d(0, -10px, 0); } }
+@keyframes float-ambient { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
 @keyframes pulse-loader { 0%, 100% { opacity: .35; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.25); } }
 
 @media (min-width: 881px) and (max-width: 1100px) {
@@ -215,6 +219,10 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 
 @media (max-width: 880px) {
   .page-width { width: min(100% - 40px, 680px); }
+  .ambient-art-lavender { right: -34px; width: 128px; }
+  .ambient-art-mint { left: -30px; width: 116px; }
+  .ambient-art-lemon { right: -25px; width: 94px; }
+  .ambient-art-tomato { left: -28px; width: 104px; }
   .header-meta { display: none; }
   .hero { gap: 20px; grid-template-columns: 1fr; padding: 58px 0 56px; }
   .hero-copy { padding-left: 0; }
@@ -255,6 +263,11 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 
 @media (max-width: 560px) {
   .page-width { width: calc(100% - 28px); }
+  .ambient-art { opacity: .82; }
+  .ambient-art-lavender { right: -52px; top: 500px; width: 106px; }
+  .ambient-art-mint { left: -42px; top: 1040px; width: 98px; }
+  .ambient-art-lemon { right: -34px; top: 1390px; width: 82px; }
+  .ambient-art-tomato { left: -38px; top: 1660px; width: 90px; }
   .topbar { padding-top: 22px; }
   .brand-logo { width: 156px; }
   .hero { min-height: auto; padding: 48px 0 35px; }

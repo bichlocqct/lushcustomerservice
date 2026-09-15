@@ -229,8 +229,12 @@ function App() {
 
   return (
     <main className="site-shell">
-      <div className="ambient-shape ambient-shape-one" aria-hidden="true" />
-      <div className="ambient-shape ambient-shape-two" aria-hidden="true" />
+      <div className="ambient-art-layer" aria-hidden="true">
+        <img className="ambient-art ambient-art-lavender" src="/lush-elements/lavender.png" alt="" />
+        <img className="ambient-art ambient-art-mint" src="/lush-elements/mint-leaf.png" alt="" />
+        <img className="ambient-art ambient-art-lemon" src="/lush-elements/lemon.png" alt="" />
+        <img className="ambient-art ambient-art-tomato" src="/lush-elements/tomato.png" alt="" />
+      </div>
 
       <header className="topbar page-width">
         <a className="brand" href="/" aria-label="LUSH — trang chủ">
