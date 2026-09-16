@@ -145,7 +145,9 @@ function RatingSelector({ rating, onChange }) {
   )
 }
 
-function SuccessState({ onReset }) {
+function SuccessState({ store }) {
+  const googleReviewUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${store} LUSH`)}`
+
   return (
     <section className="success-panel" aria-live="polite">
       <div className="success-orbit success-orbit-one" />
@@ -153,14 +155,14 @@ function SuccessState({ onReset }) {
       <div className="success-icon">
         <CheckCircle size={38} weight="light" />
       </div>
-      <p className="eyebrow">Cảm ơn bạn đã ghé LUSH</p>
-      <h2>Cảm nhận của bạn đã được ghi nhận.</h2>
+      <h2>Cảm ơn bạn đã ghé LUSH</h2>
       <p className="success-copy">
-        Phản hồi của bạn đã được lưu vào mục Tổng hợp đánh giá. Đội ngũ LUSH trân trọng từng chia sẻ để mỗi lần bạn ghé thăm đều trở nên dễ chịu hơn.
+        Nếu bạn có thời gian, một vài dòng trên Google sẽ giúp những người ghé LUSH sau bạn biết thêm về cửa hàng.
       </p>
-      <button className="secondary-button" type="button" onClick={onReset}>
-        Gửi thêm một đánh giá <ArrowRight size={17} weight="bold" />
-      </button>
+      <a className="google-review-button" href={googleReviewUrl} target="_blank" rel="noreferrer">
+        Viết review trên Google <ArrowUpRight size={17} weight="bold" />
+      </a>
+      <p className="success-note">Không bắt buộc. Bạn có thể viết bất cứ lúc nào.</p>
     </section>
   )
 }
@@ -308,7 +310,7 @@ function App() {
         </aside>
 
         {status === 'success' ? (
-          <SuccessState onReset={resetForm} />
+          <SuccessState store={store} />
         ) : (
           <form className="review-form" onSubmit={page === 1 ? handleNext : handleSubmit} noValidate>
             {page === 1 ? (

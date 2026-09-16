@@ -192,14 +192,17 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 .back-button:active { transform: translateY(-1px) scale(.98); }
 .button-loader { animation: pulse-loader 1s ease-in-out infinite; background: var(--lime); border-radius: 50%; height: 7px; width: 7px; }
 
-.success-panel { align-items: center; background: var(--green-deep); color: var(--white); display: flex; flex-direction: column; justify-content: center; min-height: 690px; overflow: hidden; padding: 80px 48px; position: relative; text-align: center; }
-.success-panel .eyebrow { color: var(--lime); margin-bottom: 22px; position: relative; }
+.success-panel { align-items: center; background: #ef5b85; color: var(--white); display: flex; flex-direction: column; justify-content: center; min-height: 690px; overflow: hidden; padding: 80px 48px; position: relative; text-align: center; }
+.success-panel .eyebrow { color: #fff79a; margin-bottom: 22px; position: relative; }
 .success-panel h2 { font-size: clamp(32px, 4vw, 52px); letter-spacing: -.06em; line-height: 1.2; margin: 0; max-width: 430px; position: relative; }
-.success-copy { color: #d5d5d2; font-size: 13px; line-height: 2; margin: 26px auto 34px; max-width: 350px; position: relative; }
-.success-icon { align-items: center; background: var(--white); border-radius: 50%; color: var(--green-deep); display: flex; height: 74px; justify-content: center; margin-bottom: 34px; position: relative; width: 74px; }
-.secondary-button { background: transparent; border-color: var(--white); color: var(--white); position: relative; }
-.secondary-button:hover { background: var(--lime); color: var(--green-deep); }
-.success-orbit { border: 1px solid rgba(255, 255, 255, .24); border-radius: 50%; height: 390px; position: absolute; width: 390px; }
+.success-copy { color: rgba(255, 255, 255, .92); font-size: 13px; line-height: 2; margin: 26px auto 28px; max-width: 390px; position: relative; }
+.success-icon { align-items: center; background: #fff79a; border-radius: 50%; color: var(--green-deep); display: flex; height: 74px; justify-content: center; margin-bottom: 34px; position: relative; width: 74px; }
+.google-review-button { align-items: center; background: var(--white); border: 1px solid var(--white); color: var(--green-deep); display: inline-flex; font-size: 11px; font-weight: 700; gap: 11px; justify-content: center; letter-spacing: .06em; padding: 14px 19px; position: relative; text-decoration: none; transition: background .3s ease, border-color .3s ease, color .3s ease, transform .3s cubic-bezier(.16,1,.3,1); }
+.google-review-button:hover { background: #fff79a; border-color: #fff79a; transform: translateY(-2px); }
+.google-review-button:active { transform: translateY(-1px) scale(.98); }
+.google-review-button:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 4px; }
+.success-note { color: rgba(255, 255, 255, .78); font-size: 10px; line-height: 1.6; margin: 15px 0 0; position: relative; }
+.success-orbit { border: 1px solid rgba(255, 255, 255, .34); border-radius: 50%; height: 390px; position: absolute; width: 390px; }
 .success-orbit-one { right: -176px; top: -105px; }
 .success-orbit-two { bottom: -248px; left: -180px; width: 480px; height: 480px; }
 
