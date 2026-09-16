@@ -18,50 +18,59 @@ import { submitReview } from './lib/api.js'
 const ratingOptions = [
   {
     value: 1,
-    label: 'Chưa trọn vẹn',
+    label: 'Chưa sủi bọt',
+    english: 'Barely fizzing',
     image: '/bathbombs/lush-rating-deep-blue-cutout.png',
     alt: 'Bath bomb LUSH màu xanh dương đậm, nền trong suốt',
   },
   {
     value: 2,
-    label: 'Cần cải thiện',
+    label: 'Sủi nhẹ',
+    english: 'A little fizz',
     image: '/bathbombs/lush-rating-blue-pink-cutout.png',
     alt: 'Bath bomb LUSH màu xanh dương với các dải màu hồng và vàng, nền trong suốt',
   },
   {
     value: 3,
-    label: 'Ổn',
+    label: 'Vừa đủ thơm',
+    english: 'Just right',
     image: '/bathbombs/lush-rating-white-pink-cutout.png',
     alt: 'Bath bomb LUSH màu trắng với họa tiết hồng, nền trong suốt',
   },
   {
     value: 4,
-    label: 'Rất tốt',
+    label: 'Sủi tưng bừng',
+    english: 'Full of fizz',
     image: '/bathbombs/lush-rating-pink-cyan-cutout.png',
     alt: 'Bath bomb LUSH màu hồng và xanh ngọc, nền trong suốt',
   },
   {
     value: 5,
-    label: 'Tuyệt vời',
+    label: 'Bung lụa cả bồn',
+    english: 'Bath-tastic!',
     image: '/bathbombs/lush-rating-yellow-pink-cutout.png',
     alt: 'Bath bomb LUSH màu vàng với các dải màu hồng và cam, nền trong suốt',
   },
 ]
 
 const impressionOptions = [
-  { id: 'service', label: 'Dịch vụ cửa hàng', english: 'Store service', Icon: Storefront },
-  { id: 'space', label: 'Không gian cửa hàng', english: 'Store atmosphere', note: 'Mùi hương, màu sắc', Icon: Sparkle },
-  { id: 'team', label: 'Thái độ nhân viên', english: 'Staff attitude', note: 'Nhiệt tình, tư vấn chuyên nghiệp, …', Icon: Smiley },
-  { id: 'product-range', label: 'Sản phẩm đa dạng', english: 'Product variety', note: 'Sản phẩm phù hợp nhiều nhu cầu', Icon: Package },
-  { id: 'other', label: 'Khác', english: 'Other', note: 'Bạn có thể chia sẻ thêm điều mình yêu thích', Icon: ChatCircleDots },
+  { id: 'consultation', label: 'Được tư vấn tận tình', english: 'Thoughtful consultation', note: 'Nhân viên hiểu nhu cầu và gợi ý sản phẩm phù hợp với bạn', Icon: ChatCircleDots },
+  { id: 'demo', label: 'Được trải nghiệm, demo sản phẩm', english: 'Product demo experience', note: 'Được thử trực tiếp trên tay, trên da hoặc với nước', Icon: Sparkle },
+  { id: 'team', label: 'Nhân viên thân thiện, nhiệt tình', english: 'Friendly, welcoming staff', note: 'Chào đón niềm nở, tạo cảm giác thoải mái', Icon: Smiley },
+  { id: 'space', label: 'Không gian cửa hàng dễ chịu', english: 'Pleasant store atmosphere', note: 'Mùi hương, màu sắc, gọn gàng và sạch sẽ', Icon: Storefront },
+  { id: 'product-range', label: 'Sản phẩm đa dạng, dễ chọn', english: 'A varied, easy-to-shop range', note: 'Có đủ sản phẩm bạn cần, dễ tìm', Icon: Package },
+  { id: 'checkout', label: 'Thanh toán nhanh gọn', english: 'Quick, easy checkout', note: 'Không phải chờ lâu, được hướng dẫn rõ ràng', Icon: CheckCircle },
+  { id: 'other', label: 'Khác', english: 'Other', note: 'Chia sẻ thêm điều bạn yêu thích', Icon: Heart },
 ]
 
 const dissatisfactionOptions = [
-  { label: 'Thái độ nhân viên chưa tốt', english: 'Staff attitude' },
-  { label: 'Kiến thức về sản phẩm', english: 'Product knowledge' },
-  { label: 'Thanh toán lâu', english: 'Long checkout time' },
-  { label: 'Sản phẩm hết hàng', english: 'Product out of stock' },
-  { label: 'Không gian/Vệ sinh cửa hàng', english: 'Store space / cleanliness' },
+  { label: 'Chưa được tư vấn kỹ', english: 'Not enough consultation', note: 'Chưa hiểu rõ sản phẩm hoặc chưa được gợi ý phù hợp' },
+  { label: 'Chưa được trải nghiệm, demo sản phẩm', english: 'No product demo experience' },
+  { label: 'Nhân viên chưa chủ động, chưa thân thiện', english: 'Staff were not proactive or friendly' },
+  { label: 'Phải chờ lâu để được hỗ trợ', english: 'Waited too long for support' },
+  { label: 'Không gian, vệ sinh cửa hàng chưa tốt', english: 'Store space or cleanliness' },
+  { label: 'Sản phẩm mình cần đang hết hàng', english: 'Product I needed was out of stock' },
+  { label: 'Thanh toán chậm hoặc chưa rõ ràng', english: 'Checkout was slow or unclear' },
   { label: 'Khác', english: 'Other' },
 ]
 
@@ -128,6 +137,7 @@ function RatingSelector({ rating, onChange }) {
             </span>
             <span className="rating-number">0{option.value}</span>
             <span className="rating-label">{option.label}</span>
+            <span className="rating-english">{option.english}</span>
           </button>
         )
       })}
@@ -307,12 +317,12 @@ function App() {
                   <div className="section-heading">
                     <div>
                       <span className="section-number">01 / 02</span>
-                      <h2>Buổi tư vấn hôm nay xứng đáng với mấy viên bath bomb?</h2>
-                      <span className="question-english">How many bath bombs would today’s consultation be worth?</span>
+                      <h2>Hôm nay bạn “thả” cho LUSH mấy viên bath bomb?</h2>
+                      <span className="question-english">How many bath bombs would you give us today?</span>
                     </div>
                     <span className="required-note">Bắt buộc</span>
                   </div>
-                  <p className="section-helper">Hãy chọn mức độ gần nhất với cảm nhận của bạn.</p>
+                  <p className="section-helper">Hãy chọn số viên gần nhất với cảm nhận của bạn.</p>
                   <RatingSelector rating={rating} onChange={(value) => { setRating(value); setFieldErrors((current) => ({ ...current, rating: '' })) }} />
                   {fieldErrors.rating ? <p className="field-error">{fieldErrors.rating}</p> : null}
                 </section>
@@ -321,11 +331,12 @@ function App() {
                   <div className="section-heading">
                     <div>
                       <span className="section-number">Điểm hài lòng</span>
-                      <h2>Điều gì đã để lại ấn tượng với bạn hôm nay?</h2>
-                      <span className="question-english">What made your visit memorable today?</span>
+                      <h2>Điều gì khiến bạn thấy vui khi ghé LUSH hôm nay?</h2>
+                      <span className="question-english">What made your visit special today?</span>
                     </div>
                     <span className="required-note">Chọn nhiều</span>
                   </div>
+                  <p className="section-helper">Chọn một hoặc vài điều bạn thích nhất.</p>
                   <div className="option-list">
                     {impressionOptions.map((option) => (
                       <ToggleOption
@@ -350,7 +361,7 @@ function App() {
                   {impressions.includes('other') ? (
                     <label className="input-group other-feedback-group">
                       <span>
-                        Bạn muốn chia sẻ thêm điều gì khiến mình hài lòng?
+                        Bạn muốn chia sẻ thêm điều gì bạn yêu thích?
                         <small>Would you like to share anything else you enjoyed?</small>
                       </span>
                       <textarea
@@ -360,7 +371,7 @@ function App() {
                           setImpressionNote(event.target.value)
                           setFieldErrors((current) => ({ ...current, impressionNote: '' }))
                         }}
-                        placeholder="Một điều nhỏ nhưng đáng nhớ với bạn hôm nay…"
+                        placeholder="Chia sẻ thêm điều bạn yêu thích…"
                         rows="3"
                         maxLength="1000"
                       />
@@ -382,8 +393,8 @@ function App() {
                   <div className="section-heading">
                     <div>
                       <span className="section-number">02 / 02</span>
-                      <h2>Bạn chưa hài lòng về điều gì hôm nay?</h2>
-                      <span className="question-english">What could we improve today?</span>
+                      <h2>Có điều gì LUSH có thể làm tốt hơn không?</h2>
+                      <span className="question-english">Is there anything we could do better?</span>
                     </div>
                     <span className="optional-note">Không bắt buộc</span>
                   </div>
@@ -400,6 +411,7 @@ function App() {
                           <span className="choice-chip-copy">
                             <span>{option.label}</span>
                             <span className="choice-chip-english">{option.english}</span>
+                            {option.note ? <span className="choice-chip-note">{option.note}</span> : null}
                           </span>
                           {checked ? <Check size={14} weight="bold" /> : null}
                         </label>
@@ -411,7 +423,7 @@ function App() {
                       Chia sẻ thêm nếu bạn muốn (không bắt buộc)
                       <small>Share anything else if you wish (optional)</small>
                     </span>
-                    <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng có thể tạo nên thay đổi lớn…" rows="3" maxLength="1000" />
+                    <textarea value={dissatisfactionNote} onChange={(event) => setDissatisfactionNote(event.target.value)} placeholder="Một góp ý nhỏ cũng giúp chúng mình thay đổi lớn…" rows="3" maxLength="1000" />
                   </label>
                 </section>
 
