@@ -83,6 +83,15 @@ const storeOptions = [
   'LUSH AEON Hà Đông',
 ]
 
+const reviewQrByStore = {
+  'LUSH Vincom Đồng Khởi': { src: '/review-qr/vincom-dong-khoi.png', alt: 'Mã QR viết review Google cho LUSH Vincom Đồng Khởi' },
+  'LUSH Saigon Center': { src: '/review-qr/saigon-center.png', alt: 'Mã QR viết review Google cho LUSH Saigon Center' },
+  'LUSH Hùng Vương Plaza': { src: '/review-qr/hung-vuong-plaza.png', alt: 'Mã QR viết review Google cho LUSH Hùng Vương Plaza' },
+  'LUSH Hanoi Center': { src: '/review-qr/hanoi-center.png', alt: 'Mã QR viết review Google cho LUSH Hanoi Center' },
+  'LUSH Lotte Tây Hồ': { src: '/review-qr/lotte-tay-ho.png', alt: 'Mã QR viết review Google cho LUSH Lotte Tây Hồ' },
+  'LUSH AEON Hà Đông': { src: '/review-qr/aeon-ha-dong.png', alt: 'Mã QR viết review Google cho LUSH AEON Hà Đông' },
+}
+
 const vietnamTimeZone = 'Asia/Ho_Chi_Minh'
 
 function getTodayLabel() {
@@ -146,7 +155,7 @@ function RatingSelector({ rating, onChange }) {
 }
 
 function SuccessState({ store }) {
-  const googleReviewUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${store} LUSH`)}`
+  const reviewQr = reviewQrByStore[store]
 
   return (
     <section className="success-panel" aria-live="polite">
@@ -159,9 +168,12 @@ function SuccessState({ store }) {
       <p className="success-copy">
         Nếu bạn có thời gian, một vài dòng trên Google sẽ giúp những người ghé LUSH sau bạn biết thêm về cửa hàng.
       </p>
-      <a className="google-review-button" href={googleReviewUrl} target="_blank" rel="noreferrer">
-        Viết review trên Google <ArrowUpRight size={17} weight="bold" />
-      </a>
+      {reviewQr ? (
+        <div className="google-review-qr">
+          <span>Viết review trên Google</span>
+          <img src={reviewQr.src} alt={reviewQr.alt} />
+        </div>
+      ) : null}
       <p className="success-note">Không bắt buộc. Bạn có thể viết bất cứ lúc nào.</p>
     </section>
   )
