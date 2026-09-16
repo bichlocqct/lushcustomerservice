@@ -5,8 +5,13 @@ import {
   ArrowUpRight,
   Check,
   CheckCircle,
+  ChatCircleDots,
   Heart,
   MapPin,
+  Package,
+  Smiley,
+  Sparkle,
+  Storefront,
 } from '@phosphor-icons/react'
 import { submitReview } from './lib/api.js'
 
@@ -44,20 +49,20 @@ const ratingOptions = [
 ]
 
 const impressionOptions = [
-  { id: 'service', label: 'Dịch vụ cửa hàng' },
-  { id: 'space', label: 'Không gian cửa hàng', note: 'Mùi hương, màu sắc' },
-  { id: 'team', label: 'Thái độ nhân viên', note: 'Nhiệt tình, tư vấn chuyên nghiệp, …' },
-  { id: 'product-range', label: 'Sản phẩm đa dạng', note: 'Sản phẩm phù hợp nhiều nhu cầu' },
-  { id: 'other', label: 'Khác', note: 'Bạn có thể chia sẻ thêm điều mình yêu thích' },
+  { id: 'service', label: 'Dịch vụ cửa hàng', english: 'Store service', Icon: Storefront },
+  { id: 'space', label: 'Không gian cửa hàng', english: 'Store atmosphere', note: 'Mùi hương, màu sắc', Icon: Sparkle },
+  { id: 'team', label: 'Thái độ nhân viên', english: 'Staff attitude', note: 'Nhiệt tình, tư vấn chuyên nghiệp, …', Icon: Smiley },
+  { id: 'product-range', label: 'Sản phẩm đa dạng', english: 'Product variety', note: 'Sản phẩm phù hợp nhiều nhu cầu', Icon: Package },
+  { id: 'other', label: 'Khác', english: 'Other', note: 'Bạn có thể chia sẻ thêm điều mình yêu thích', Icon: ChatCircleDots },
 ]
 
 const dissatisfactionOptions = [
-  'Thái độ nhân viên chưa tốt',
-  'Kiến thức về sản phẩm',
-  'Thanh toán lâu',
-  'Sản phẩm hết hàng',
-  'Không gian/Vệ sinh cửa hàng',
-  'Khác',
+  { label: 'Thái độ nhân viên chưa tốt', english: 'Staff attitude' },
+  { label: 'Kiến thức về sản phẩm', english: 'Product knowledge' },
+  { label: 'Thanh toán lâu', english: 'Long checkout time' },
+  { label: 'Sản phẩm hết hàng', english: 'Product out of stock' },
+  { label: 'Không gian/Vệ sinh cửa hàng', english: 'Store space / cleanliness' },
+  { label: 'Khác', english: 'Other' },
 ]
 
 const storeOptions = [
@@ -81,15 +86,19 @@ function getTodayLabel() {
   }).format(new Date())
 }
 
-function ToggleOption({ checked, label, note, onChange }) {
+function ToggleOption({ checked, label, english, note, Icon, onChange }) {
   return (
     <label className={`toggle-option ${checked ? 'is-selected' : ''}`}>
       <input type="checkbox" checked={checked} onChange={onChange} />
       <span className="toggle-mark" aria-hidden="true">
         {checked ? <Check size={15} weight="bold" /> : null}
       </span>
+      <span className="toggle-icon" aria-hidden="true">
+        <Icon size={22} weight="duotone" />
+      </span>
       <span className="toggle-copy">
         <span className="toggle-label">{label}</span>
+        <span className="toggle-english">{english}</span>
         {note ? <span className="toggle-note">{note}</span> : null}
       </span>
     </label>
@@ -323,7 +332,9 @@ function App() {
                         key={option.id}
                         checked={impressions.includes(option.id)}
                         label={option.label}
+                        english={option.english}
                         note={option.note}
+                        Icon={option.Icon}
                         onChange={() => {
                           toggleValue(option.id, impressions, setImpressions)
                           setFieldErrors((current) => ({ ...current, impressions: '' }))
@@ -376,14 +387,20 @@ function App() {
                     </div>
                     <span className="optional-note">Không bắt buộc</span>
                   </div>
-                  <p className="section-helper">Bạn có thể chọn một hoặc vài mục, hoặc bỏ qua nếu hôm nay mọi thứ đều ổn.</p>
+                  <p className="section-helper">
+                    <span>Bạn có thể chọn một hoặc vài mục, hoặc bỏ qua nếu hôm nay mọi thứ đều ổn.</span>
+                    <span className="section-helper-english">You may select one or more options, or skip this section if everything felt just right today.</span>
+                  </p>
                   <div className="chip-list">
                     {dissatisfactionOptions.map((option) => {
-                      const checked = dissatisfactions.includes(option)
+                      const checked = dissatisfactions.includes(option.label)
                       return (
-                        <label className={`choice-chip ${checked ? 'is-selected' : ''}`} key={option}>
-                          <input type="checkbox" checked={checked} onChange={() => toggleValue(option, dissatisfactions, setDissatisfactions)} />
-                          <span>{option}</span>
+                        <label className={`choice-chip ${checked ? 'is-selected' : ''}`} key={option.label}>
+                          <input type="checkbox" checked={checked} onChange={() => toggleValue(option.label, dissatisfactions, setDissatisfactions)} />
+                          <span className="choice-chip-copy">
+                            <span>{option.label}</span>
+                            <span className="choice-chip-english">{option.english}</span>
+                          </span>
                           {checked ? <Check size={14} weight="bold" /> : null}
                         </label>
                       )
