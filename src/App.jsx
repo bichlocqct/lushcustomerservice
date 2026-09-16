@@ -271,16 +271,16 @@ function App() {
 
       <section className="hero page-width">
         <div className="hero-copy">
-          <p className="eyebrow"><img className="eyebrow-fruit" src="/lush-elements/strawberry.png" alt="" aria-hidden="true" /> LUSH service notes</p>
-          <h1><span>Mỗi lần ghé LUSH</span><span>đều đáng nhớ hơn</span></h1>
+          <p className="eyebrow"><img className="eyebrow-fruit" src="/lush-elements/strawberry.png" alt="" aria-hidden="true" /> Tell us about today</p>
+          <h1><span>Để lần sau ghé LUSH</span><span>còn vui hơn nữa</span></h1>
           <p className="hero-description">
             Chia sẻ vài dòng về trải nghiệm hôm nay. Những điều nhỏ bạn nói ra giúp chúng mình chăm chút cửa hàng tốt hơn mỗi ngày.
           </p>
           <div className="hero-stamp" aria-label="Thông tin khảo sát">
             <div className="stamp-icon"><Heart size={22} weight="fill" /></div>
             <div>
-              <span className="stamp-kicker">Your voice matters</span>
-              <span className="stamp-copy">Mất khoảng 60 giây</span>
+              <span className="stamp-kicker">Quà nhỏ cho bạn</span>
+              <span className="stamp-copy">Hoàn thành trong 1 phút, nhận ngay mẫu thử LUSH tại quầy</span>
             </div>
           </div>
         </div>

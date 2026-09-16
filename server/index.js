@@ -9,13 +9,15 @@ const app = express()
 const port = Number(process.env.PORT || 3001)
 const vietnamTimeZone = 'Asia/Ho_Chi_Minh'
 const impressionLabels = new Map([
-  ['service', 'Dịch vụ cửa hàng'],
-  ['space', 'Không gian cửa hàng'],
-  ['team', 'Thái độ nhân viên'],
-  ['product-range', 'Sản phẩm đa dạng'],
+  ['consultation', 'Được tư vấn tận tình'],
+  ['demo', 'Được trải nghiệm, demo sản phẩm'],
+  ['team', 'Nhân viên thân thiện, nhiệt tình'],
+  ['space', 'Không gian cửa hàng dễ chịu'],
+  ['product-range', 'Sản phẩm đa dạng, dễ chọn'],
+  ['checkout', 'Thanh toán nhanh gọn'],
   ['other', 'Khác'],
 ])
-const allowedImpressions = new Set(['service', 'space', 'team', 'product-range', 'other'])
+const allowedImpressions = new Set(['consultation', 'demo', 'team', 'space', 'product-range', 'checkout', 'other'])
 const allowedStores = new Set([
   'LUSH Vincom Đồng Khởi',
   'LUSH Saigon Center',
@@ -25,11 +27,13 @@ const allowedStores = new Set([
   'LUSH AEON Hà Đông',
 ])
 const allowedDissatisfactions = new Set([
-  'Thái độ nhân viên chưa tốt',
-  'Kiến thức về sản phẩm',
-  'Thanh toán lâu',
-  'Sản phẩm hết hàng',
-  'Không gian/Vệ sinh cửa hàng',
+  'Chưa được tư vấn kỹ',
+  'Chưa được trải nghiệm, demo sản phẩm',
+  'Nhân viên chưa chủ động, chưa thân thiện',
+  'Phải chờ lâu để được hỗ trợ',
+  'Không gian, vệ sinh cửa hàng chưa tốt',
+  'Sản phẩm mình cần đang hết hàng',
+  'Thanh toán chậm hoặc chưa rõ ràng',
   'Khác',
 ])
 const reviewsInDemoMode = []
